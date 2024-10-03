@@ -7,8 +7,8 @@
 - reactions to touch // stage2
 
 - reactions to human pitch:
-    - too low: look down;
-    - too high: look up;
+    - too low: look down, face colour changes;
+    - too high: look up, face colour changes;
     - correct: eyes turn to camera and split a picture
 
 - "conversation" mode:
