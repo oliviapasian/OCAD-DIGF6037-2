@@ -1,7 +1,7 @@
 /* Creation & Computation - Multiscreen
 
 Stories and Rules：
-- （ a user pick a costume, scan the QR code to open this APP, and install their phone )
+- （ a user pick a costume, scan the QR code to open this APP, grants the access("adopt me") and turn on the speaker, and install their phone )
 - ( they need to stand at certain marked location and find/wait for another user to stand at the related location )
 - users' goal is to reach certain points within given time (e.g. 5 mins)
 - they shake their phone to send out a pitch
