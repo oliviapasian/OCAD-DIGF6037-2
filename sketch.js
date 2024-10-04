@@ -15,24 +15,28 @@ Stories and Rules：
 */
 
 
-// import functions
 
-// import settings
 
 
 function setup() {
-  createCanvas(400, 400);
+  createCanvas(windowWidth, windowHeight);
+  
   
 }
 
 function draw() {
-  background(220);
+  background(250);
   // for test file structure; delete later
-  text(petName, 60, 60); 
-  fill(eyeShadeColour);
-  circle(120,120,60)
+  drawFace(eyeSize,eyeShadeColour);
 
 }
+
+function windowResized() {
+  // Resize the canvas when the window is resized
+  resizeCanvas(windowWidth, windowHeight);
+}
+
+
 
 /*
 References:
