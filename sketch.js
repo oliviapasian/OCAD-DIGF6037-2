@@ -14,26 +14,30 @@ Stories and Rules：
 
 */
 
-
-
+// settings
+let blinkPause = 100 * blinkSeed,
+eyeLineWidth = 3*eyeSeed;
 
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  
-  
+  angleMode(DEGREES);
+
+  // for test, but also cute
+  console.log("Hello! My name is " + petName);
+
+  // default settings
+  noStroke();
+  noFill();
 }
 
 function draw() {
-  background(250);
-  // for test file structure; delete later
-  drawFace(eyeSize,eyeShadeColour);
+  background(faceColour);
+ 
+  // draw face
+  drawFace(eyeSeed, eyeColour, eyeShadeColour, blinkPause);
 
-}
-
-function windowResized() {
-  // Resize the canvas when the window is resized
-  resizeCanvas(windowWidth, windowHeight);
+ 
 }
 
 
