@@ -12,6 +12,10 @@ Stories and Rules：
 - By the end, if no one can reach the goal in time, who has the highest pointing win.
 - (rewards: some decorations)
 
+
+Reference
+DEVICE Gyroscope by remarkability https://editor.p5js.org/remarkability/sketches/1D90zhu4a
+
 */
 
 // settings
