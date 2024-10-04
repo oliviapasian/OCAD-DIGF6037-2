@@ -27,7 +27,7 @@
 // settings
 
 
-function drawFace(eyeSeed,eyeColour,eyeShadeColour,blinkPause){
+function drawFace(eyeSeed,blinkPause){
 
     // settings
     let
@@ -47,7 +47,7 @@ function drawFace(eyeSeed,eyeColour,eyeShadeColour,blinkPause){
   
 
     // draw mouth
-    drawMouth();
+    drawMouth(mouthSeed);
 
 
     // left eye
@@ -75,8 +75,12 @@ function drawEyeShade(x,y,colour,eyeSize){
 }
 
 // draw mouth
-function drawMouth(){
-
+function drawMouth(mouthSeed){
+push();
+strokeWeight( mouthSeed*2);
+stroke(eyeColour);
+ellipse(windowWidth/2, windowHeight*0.75, windowWidth*0.2+mouthSeed*5,1);
+pop()
 }
 
 // draw eye
@@ -94,6 +98,7 @@ function drawEyeBall(x, y, colour, size, blinkPause){
   let ballSize = size * 0.8, eyeLineWidth = 4+1*eyeSeed;
 
   function eyeClip(){
+    fill(100);
     circle(0,0,size);
   }
   // eye bg
@@ -113,7 +118,6 @@ function drawEyeBall(x, y, colour, size, blinkPause){
   push();
   translate(x,y);
   clip(eyeClip);
-  
   // eye lid - top  
   fill(faceColour);
   rect(-size/2-eyeLineWidth,-size/2-eyeLineWidth,size+eyeLineWidth*2,size*0.6);
@@ -122,8 +126,6 @@ function drawEyeBall(x, y, colour, size, blinkPause){
   fill(eyeShadeColour); 
   rect(-size/2-eyeLineWidth,0,size+eyeLineWidth*2,size*0.6);
   
-  // fill(230);
-  // eyeClip();
 
   pop();
 
