@@ -14,6 +14,12 @@ Stories and Rules：
 
 */
 
+
+// import functions
+
+// import settings
+
+
 function setup() {
   createCanvas(400, 400);
 }
@@ -21,3 +27,8 @@ function setup() {
 function draw() {
   background(220);
 }
+
+/*
+References:
+
+*/
