@@ -39,7 +39,15 @@ function draw() {
   background(faceColour);
  
   // draw face
-  drawFace( mouthSeed);
+  // drawFace('initial');
+
+  // for test
+  drawFace("talking");
+
+  // conversation face
+  // if(isStarted){
+  // drawFace("talking");
+  // }
 
  
 }

@@ -29,24 +29,21 @@
 // settings
 
 
-function drawFace( mouthSeed) {
+function drawFace(expression) {
   // settings  
-  
+
 
   // draw eyes
-
-  // drawEyeShade(leftEyeX, leftEyeY, eyeShadeColour, eyeSize);
-  drawEye(leftEyeX, leftEyeY, eyeSize,  45);
-  // drawEyeShade(rightEyeX, rightEyeY, eyeShadeColour, eyeSize);
-  drawEye(rightEyeX, rightEyeY, eyeSize,   -45);
+  drawEye(leftEyeX, leftEyeY, eyeSize, 45,expression);
+  drawEye(rightEyeX, rightEyeY, eyeSize, -45,expression);
 
   // draw mouth
-  drawMouth(mouthSeed);
+  drawMouth(expression);
 };
 
 
 // draw eye
-function drawEye(x, y, size,  angle) {
+function drawEye(x, y, size, angle) {
   push();
   translate(x, y);
   rotate(angle);
@@ -79,43 +76,43 @@ function drawEyeBall(x, y, colour, size) {
   circle(0, 0, ballSize);
   pop();
 
- //eye lids blinking
+  //eye lids blinking
   push();
   // mask the lids
   clip(eyeClip);
   // eye lid - top
-  
+
   // counting down the pause
-  if (blinkTimer>0){
-    blinkTimer--;    
+  if (blinkTimer > 0) {
+    blinkTimer--;
   }
 
   // if count to 0, start to blink
-  if (blinkTimer == 0){
+  if (blinkTimer == 0) {
 
-  // set the position
-  eyeLidTopPosY += blinkSpeed * direction;
-  eyeLidBottomPosY -= blinkSpeed * direction;
+    // set the position
+    eyeLidTopPosY += blinkSpeed * direction;
+    eyeLidBottomPosY -= blinkSpeed * direction;
 
-  // if closed, change the movement direction
-  if(eyeLidTopPosY>=eyeLidTopClosePosY){
-    direction = -direction;
+    // if closed, change the movement direction
+    if (eyeLidTopPosY >= eyeLidTopClosePosY) {
+      direction = -direction;
+    }
+
+    // draw the eye lids
+    fill(faceColour);
+    rect(-eyeLidWidth / 2, eyeLidTopPosY, eyeLidWidth, eyeLidHeight);
+    fill(eyeShadeColour);
+    rect(-eyeLidWidth / 2, eyeLidBottomPosY, eyeLidWidth, eyeLidHeight);
+
+    // if the lids are back to open position, reset the lids, pause and direction 
+    if (eyeLidTopPosY <= eyeLidTopOpenPosY) {
+      blinkTimer = blinkPause;
+      eyeLidTopPosY = eyeLidTopOpenPosY;
+      eyeLidBottomPosY = eyeLidBottomOpenPosY;
+      direction = -direction;
+    }
   }
-
-  // draw the eye lids
-  fill(faceColour);
-  rect(-eyeLidWidth / 2, eyeLidTopPosY, eyeLidWidth, eyeLidHeight);
-  fill(eyeShadeColour);
-  rect(-eyeLidWidth / 2, eyeLidBottomPosY, eyeLidWidth, eyeLidHeight);
-  
-  // if the lids are back to open position, reset the lids, pause and direction 
-  if (eyeLidTopPosY <= eyeLidTopOpenPosY){
-    blinkTimer = 100 * blinkSeed;
-    eyeLidTopPosY = eyeLidTopOpenPosY;
-    eyeLidBottomPosY = eyeLidBottomOpenPosY;
-    direction = -direction;
-  }
-}
   pop();
 
   // eye lines
@@ -134,11 +131,31 @@ function drawEyeBall(x, y, colour, size) {
 }
 
 // draw mouth
-function drawMouth(mouthSeed) {
+function drawMouth(expression) {
   push();
-  strokeWeight(mouthSeed * 2);
+  strokeWeight(mouthThickness);
   stroke(eyeColour);
-  ellipse(windowWidth / 2, windowHeight * 0.75, windowWidth * 0.2 + mouthSeed * 5, 1);
+  fill(faceColour.map(a=>constrain(a-50,128,255)));
+
+  switch (expression){
+  case "initial":
+    ellipse(windowWidth / 2, windowHeight * 0.75, mouthWidth-mouthHeight*1, mouthInitialHeight);
+
+  case "talking":
+  if (mouthTimer > 0) {
+    mouthTimer--;
+    ellipse(windowWidth / 2, windowHeight * 0.75, mouthWidth-mouthHeight*1, mouthHeight);
+  } 
+  
+  if (mouthTimer == 0) {
+    mouthHeight = round(random(10, 60));
+    mouthTimer = constrain(mouthPause - round(random(1, 30)), 5, 60); 
+    console.log(mouthTimer);
+  }
+  ellipse(windowWidth / 2, windowHeight * 0.75, mouthWidth-mouthHeight*1, mouthHeight);
+  break;
+
+  }
   pop()
 }
 
