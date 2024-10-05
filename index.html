@@ -48,12 +48,15 @@
             mouthWidth = windowWidth * 0.2 + mouthSeed * 5,
             mouthThickness = mouthSeed * 2
             mouthInitialHeight = 2 + mouthSeed * 1,
-            mouthPause = 20 + mouthSeed * 3;
+            mouthPause = 20 + mouthSeed * 3,
+            eyeMovePause = 60;
         let mouthTimer = mouthPause,
         blinkTimer = blinkPause,
         eyeLidTopPosY = eyeLidTopOpenPosY,
         eyeLidBottomPosY = eyeLidBottomOpenPosY,
-        mouthHeight = mouthInitialHeight;
+        mouthHeight = mouthInitialHeight,
+eyeMoveTimer = eyeMovePause,
+eyeMoveRange = 1;
         let direction = 1;                      
     </script>
     <script src="_expressions.js"></script>

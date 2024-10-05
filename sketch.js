@@ -45,7 +45,7 @@ function draw() {
   drawFace("talking");
 
   // conversation face
-  // if(isStarted){
+  // if(isStarted()){
   // drawFace("talking");
   // }
 

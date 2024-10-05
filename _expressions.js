@@ -34,8 +34,12 @@ function drawFace(expression) {
 
 
   // draw eyes
-  drawEye(leftEyeX, leftEyeY, eyeSize, 45,expression);
-  drawEye(rightEyeX, rightEyeY, eyeSize, -45,expression);
+  drawEye(leftEyeX, leftEyeY, eyeSize, 45, expression);
+  push();
+  translate(rightEyeX, rightEyeY);
+  scale (-1,1);
+  drawEye(0, 0, eyeSize, 45, expression);
+  pop();
 
   // draw mouth
   drawMouth(expression);
@@ -43,16 +47,34 @@ function drawFace(expression) {
 
 
 // draw eye
-function drawEye(x, y, size, angle) {
+function drawEye(x, y, size, angle, expression) {
   push();
   translate(x, y);
   rotate(angle);
-  drawEyeShade(0, 0, eyeShadeColour, size);
-  drawEyeBall(0, 0, eyeColour, size);
+  switch (expression) {
+    case "initial":
+      drawEyeShade(0, 0, eyeShadeColour, size, expression);
+      drawEyeBall(0, 0, eyeColour, size, expression);
+      break;
+    case "talking":
+      if(eyeMoveTimer > 0){
+        eyeMoveTimer --;
+      }     
+      if (eyeMoveTimer == 0){
+        eyeMoveRange = round(random(0,10))-5;
+        eyeMoveTimer = eyeMovePause;        
+      }
+      drawEyeShade(eyeMoveRange*0.5, 0, eyeShadeColour, size + eyeMoveRange*0.2, expression);
+      drawEyeBall(eyeMoveRange*0.5, eyeMoveRange, eyeColour, size + eyeMoveRange, expression);
+      break;
+    default:
+      drawEyeShade(0, 0, eyeShadeColour, size, expression);
+      drawEyeBall(0, 0, eyeColour, size, expression);
+  }
   pop()
 }
 
-function drawEyeShade(x, y, colour, eyeSize) {
+function drawEyeShade(x, y, colour, eyeSize, expression) {
   push();
   fill(colour);
   translate(x, y);
@@ -61,25 +83,39 @@ function drawEyeShade(x, y, colour, eyeSize) {
 }
 
 // draw eye
-function drawEyeBall(x, y, colour, size) {
-  // let ballSize = size * 0.8, eyeLineWidth = 4 + 1 * eyeSeed;
-
+function drawEyeBall(x, y, colour, size, expression) {
+//  let ballSize = size * 0.8;
   push();
   translate(x, y);
 
   // eye bg
   fill(255);
   circle(0, 0, size);
+  pop();
+
+  push();
+  translate(x, y);
+// mask the eyeball and lids
+  beginClip();
+  fill(100);
+  circle(0, 0, size);
+  endClip();
 
   // eye ball  
   fill(colour);
-  circle(0, 0, ballSize);
-  pop();
+  switch (expression) {
+    case "talking":
+      circle(0-0.5*eyeMoveRange, 0+0.5*eyeMoveRange, ballSize+2*eyeMoveRange);
+      break;
+  
+    default:
+      circle(0, 0, ballSize);
+      break;
+  }
+
 
   //eye lids blinking
-  push();
-  // mask the lids
-  clip(eyeClip);
+
   // eye lid - top
 
   // counting down the pause
@@ -117,16 +153,13 @@ function drawEyeBall(x, y, colour, size) {
 
   // eye lines
   push();
+  translate(x, y);
   stroke(colour);
   strokeWeight(eyeLineWidth);
-  circle(x, y, size);
+  circle(0, 0, size);
   pop();
 
-  // define the mask 
-  function eyeClip() {
-    fill(100);
-    circle(0, 0, size);
-  }
+
 
 }
 
@@ -135,25 +168,24 @@ function drawMouth(expression) {
   push();
   strokeWeight(mouthThickness);
   stroke(eyeColour);
-  fill(faceColour.map(a=>constrain(a-50,128,255)));
+  fill(faceColour.map(a => constrain(a - 50, 128, 255)));
 
-  switch (expression){
-  case "initial":
-    ellipse(windowWidth / 2, windowHeight * 0.75, mouthWidth-mouthHeight*1, mouthInitialHeight);
-
-  case "talking":
-  if (mouthTimer > 0) {
-    mouthTimer--;
-    ellipse(windowWidth / 2, windowHeight * 0.75, mouthWidth-mouthHeight*1, mouthHeight);
-  } 
-  
-  if (mouthTimer == 0) {
-    mouthHeight = round(random(10, 60));
-    mouthTimer = constrain(mouthPause - round(random(1, 30)), 5, 60); 
-    console.log(mouthTimer);
-  }
-  ellipse(windowWidth / 2, windowHeight * 0.75, mouthWidth-mouthHeight*1, mouthHeight);
-  break;
+  switch (expression) {
+    case "initial":
+      ellipse(windowWidth / 2, windowHeight * 0.75, mouthWidth - mouthHeight * 1, mouthInitialHeight);
+      break;
+    case "talking":
+      if (mouthTimer > 0) {
+        mouthTimer--;
+      }
+      if (mouthTimer == 0) {
+        mouthHeight = round(random(10, 60));
+        mouthTimer = constrain(mouthPause - round(random(1, 30)), 5, 60);
+      }
+      ellipse(windowWidth / 2, windowHeight * 0.75, mouthWidth - mouthHeight * 1, mouthHeight);
+      break;
+      default:
+        ellipse(windowWidth / 2, windowHeight * 0.75, mouthWidth - mouthHeight * 1, mouthInitialHeight);
 
   }
   pop()
