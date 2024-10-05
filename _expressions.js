@@ -86,12 +86,12 @@ function drawEyeBall(x, y, colour, size) {
   // eye lid - top
   
   // counting down the pause
-  if (blinkPause>0){
-    blinkPause--;    
+  if (blinkTimer>0){
+    blinkTimer--;    
   }
 
   // if count to 0, start to blink
-  if (blinkPause == 0){
+  if (blinkTimer == 0){
 
   // set the position
   eyeLidTopPosY += blinkSpeed * direction;
@@ -110,7 +110,7 @@ function drawEyeBall(x, y, colour, size) {
   
   // if the lids are back to open position, reset the lids, pause and direction 
   if (eyeLidTopPosY <= eyeLidTopOpenPosY){
-    blinkPause = 100 * blinkSeed;
+    blinkTimer = 100 * blinkSeed;
     eyeLidTopPosY = eyeLidTopOpenPosY;
     eyeLidBottomPosY = eyeLidBottomOpenPosY;
     direction = -direction;

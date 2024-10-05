@@ -10,9 +10,25 @@
 <body>
 <script> // character settings
 const petName = "Bella", eyeShadeColour = "#692988", outPitch = ""; 
-</script>
-<!-- inject:js -->
-<script src="/GyroscopeUtil.js"></script>
+</script><script>let windowHeight = window.innerHeight, windowWidth = window.innerWidth;
+let eyeSize = windowHeight * 0.4 + eyeSeed * 5,
+    margin = windowWidth * 0.1 + eyeSize / 2,
+    leftEyeX = margin,
+    leftEyeY = windowHeight * 0.45,
+    rightEyeX = windowWidth - margin,
+    rightEyeY = leftEyeY,
+    ballSize = eyeSize * 0.8, eyeLineWidth = 4 + 1 * eyeSeed,
+    blinkPause = 250 + 10 * blinkSeed,
+    blinkTimer = blinkPause,
+    eyeLidWidth = eyeSize + eyeLineWidth * 2,
+    eyeLidHeight = eyeSize * 0.6,
+    eyeLidTopOpenPosY = -eyeLidHeight * 2,
+    eyeLidBottomOpenPosY = eyeLidHeight,
+    eyeLidTopClosePosY = -eyeLidHeight,
+    eyeLidBottomClosePosY = 0,
+    eyeLidTopPosY = eyeLidTopOpenPosY,
+    eyeLidBottomPosY = eyeLidBottomOpenPosY,
+    direction = 1;                        </script><!-- inject:js -->
 <script src="/_awards.js"></script>
 <script src="/_draw.js"></script>
 <script src="/_expressions.js"></script>
