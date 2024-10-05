@@ -1,28 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Milo</title>
-<link rel="stylesheet" type="text/css" href="style.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.10.0/p5.min.js" integrity="sha512-lvddmeF7aHRJwdbJeYThWd5kWSjTrXBzCRF/jYROiHzmhMJ1dEXfGH5Q7ft0yhizXTopAETG03s5ajTflauijA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.10.0/addons/p5.sound.min.js" integrity="sha512-WzkwpdWEMAY/W8WvP9KS2/VI6zkgejR4/KTxTl4qHx0utqeyVE0JY+S1DlMuxDChC7x0oXtk/ESji6a0lP/Tdg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Milo</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.10.0/p5.min.js"
+        integrity="sha512-lvddmeF7aHRJwdbJeYThWd5kWSjTrXBzCRF/jYROiHzmhMJ1dEXfGH5Q7ft0yhizXTopAETG03s5ajTflauijA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.10.0/addons/p5.sound.min.js"
+        integrity="sha512-WzkwpdWEMAY/W8WvP9KS2/VI6zkgejR4/KTxTl4qHx0utqeyVE0JY+S1DlMuxDChC7x0oXtk/ESji6a0lP/Tdg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <!--This file is for test-->
-<body> 
-<script>
-const 
-petName = "Milo", 
-faceColour= [252,234,254], 
-eyeSeed = 2,
-blinkSeed = 4, 
-eyeColour = [25,58,24], 
-eyeShadeColour = [160,148,124], 
-mouthSeed = 3,
-outPitch = "", 
-talkativeLevel = 2; 
-</script>
-<script src="_expressions.js"></script>
-<script src="sketch.js"></script>
+
+<body>
+    <script>
+        const
+            petName = "Milo",
+            faceColour = [252, 234, 254],
+            eyeSeed = 2,
+            blinkSpeed = 3,
+            blinkSeed = 4,
+            eyeColour = [25, 58, 24],
+            eyeShadeColour = [160, 148, 124],
+            mouthSeed = 3,
+            outPitch = "",
+            talkativeLevel = 2; 
+    </script>
+    <script>
+        let windowHeight = window.innerHeight, windowWidth = window.innerWidth;
+        let eyeSize = windowHeight * 0.4 + eyeSeed * 5,
+            margin = windowWidth * 0.1 + eyeSize / 2,
+            leftEyeX = margin,
+            leftEyeY = windowHeight * 0.45,
+            rightEyeX = windowWidth - margin,
+            rightEyeY = leftEyeY,
+            ballSize = eyeSize * 0.8, eyeLineWidth = 4 + 1 * eyeSeed,
+            blinkPause = 20 * blinkSeed,
+            eyeLidWidth = eyeSize + eyeLineWidth * 2,
+            eyeLidHeight = eyeSize * 0.6,
+            eyeLidTopOpenPosY = -eyeLidHeight * 2,
+            eyeLidBottomOpenPosY = eyeLidHeight,
+            eyeLidTopClosePosY = -eyeLidHeight,
+            eyeLidBottomClosePosY = 0,
+            eyeLidTopPosY = eyeLidTopOpenPosY,
+            eyeLidBottomPosY = eyeLidBottomOpenPosY,
+            direction = 1;
+                       
+    </script>
+    <script src="_expressions.js"></script>
+    <script src="sketch.js"></script>
 </body>
+
 </html>
