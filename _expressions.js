@@ -1,5 +1,7 @@
 /* This file is for different expressions, including:
 
+- initial
+
 - reactions to shake:
     - if(initiateConversation) waiting;
     - if(isFaint) faint for 5 seconds (a punishment for player);
@@ -27,185 +29,120 @@
 // settings
 
 
-function drawFace(eyeSeed,blinkPause){
-
-    // settings
-    let
-    eyeSize = windowHeight*0.4+eyeSeed*5,
-    margin = windowWidth*0.1 + eyeSize/2,
-    leftEyeX = margin,
-    leftEyeY = windowHeight*0.45,
-    rightEyeX = windowWidth-margin,
-    rightEyeY = leftEyeY;
-
-    // draw eyes
-  
-    // drawEyeShade(leftEyeX, leftEyeY, eyeShadeColour, eyeSize);
-    drawEye(leftEyeX, leftEyeY, eyeSize, blinkPause,45);    
-    // drawEyeShade(rightEyeX, rightEyeY, eyeShadeColour, eyeSize);
-    drawEye(rightEyeX, rightEyeY, eyeSize, blinkPause, -45);
+function drawFace( mouthSeed) {
+  // settings  
   
 
-    // draw mouth
-    drawMouth(mouthSeed);
+  // draw eyes
 
+  // drawEyeShade(leftEyeX, leftEyeY, eyeShadeColour, eyeSize);
+  drawEye(leftEyeX, leftEyeY, eyeSize,  45);
+  // drawEyeShade(rightEyeX, rightEyeY, eyeShadeColour, eyeSize);
+  drawEye(rightEyeX, rightEyeY, eyeSize,   -45);
 
-    // left eye
-    // this.x = windowWidth/2;
-    // this.y = windowHeight/2;
-    // this.blinkPause = random(200,300);
-    // this.rightEye = new eye(windowWidth*95% - size/2, y ,this.blinkPause);
-    // this.leftEye = new eye(windowWidth*5% + size/2, y,this.blinkPause);
-    // this.draw = function(){
-    //   this.rightEye.draw();
-    //   this.rightEye.blink();
-    //   this.leftEye.draw();
-    //   this.leftEye.blink()
-    // }
+  // draw mouth
+  drawMouth(mouthSeed);
+};
 
-}
-
-//
-function drawEyeShade(x,y,colour,eyeSize){
-  push();
-  fill(colour);
-  translate(x,y);
-  ellipse(0, eyeSize*0.2, eyeSize*1.1, eyeSize*1.3);
-  pop();
-}
-
-// draw mouth
-function drawMouth(mouthSeed){
-push();
-strokeWeight( mouthSeed*2);
-stroke(eyeColour);
-ellipse(windowWidth/2, windowHeight*0.75, windowWidth*0.2+mouthSeed*5,1);
-pop()
-}
 
 // draw eye
-function drawEye(x,y,size,blinkPause, angle){
+function drawEye(x, y, size,  angle) {
   push();
-  translate(x,y);
+  translate(x, y);
   rotate(angle);
-  drawEyeShade(0,0,eyeShadeColour, size);
-  drawEyeBall(0,0,eyeColour, size, blinkPause);
+  drawEyeShade(0, 0, eyeShadeColour, size);
+  drawEyeBall(0, 0, eyeColour, size);
   pop()
 }
 
-// draw eye; reference: https://editor.p5js.org/khamiltonuk/sketches/9LTXJPAoE
-function drawEyeBall(x, y, colour, size, blinkPause){
-  let ballSize = size * 0.8, eyeLineWidth = 4+1*eyeSeed;
-
-  function eyeClip(){
-    fill(100);
-    circle(0,0,size);
-  }
-  // eye bg
-  push();
-  fill(255);
-  circle(x,y,size);
-  pop();
-
-  // eye ball
+function drawEyeShade(x, y, colour, eyeSize) {
   push();
   fill(colour);
-  circle(x,y,ballSize);
-  circle();
+  translate(x, y);
+  ellipse(0, eyeSize * 0.2, eyeSize * 1.1, eyeSize * 1.3);
   pop();
+}
 
-  // eye lids
+// draw eye
+function drawEyeBall(x, y, colour, size) {
+  // let ballSize = size * 0.8, eyeLineWidth = 4 + 1 * eyeSeed;
+
   push();
-  translate(x,y);
-  clip(eyeClip);
-  // eye lid - top  
-  fill(faceColour);
-  rect(-size/2-eyeLineWidth,-size/2-eyeLineWidth,size+eyeLineWidth*2,size*0.6);
-    
-  // eye lid - bottom
-  fill(eyeShadeColour); 
-  rect(-size/2-eyeLineWidth,0,size+eyeLineWidth*2,size*0.6);
-  
+  translate(x, y);
 
+  // eye bg
+  fill(255);
+  circle(0, 0, size);
+
+  // eye ball  
+  fill(colour);
+  circle(0, 0, ballSize);
   pop();
 
-    // eye lines
-    push();
-    stroke(colour);
-    strokeWeight(eyeLineWidth);
-    circle(x,y,size);
-    pop();
+ //eye lids blinking
+  push();
+  // mask the lids
+  clip(eyeClip);
+  // eye lid - top
+  
+  // counting down the pause
+  if (blinkPause>0){
+    blinkPause--;    
+  }
+
+  // if count to 0, start to blink
+  if (blinkPause == 0){
+
+  // set the position
+  eyeLidTopPosY += blinkSpeed * direction;
+  eyeLidBottomPosY -= blinkSpeed * direction;
+
+  // if closed, change the movement direction
+  if(eyeLidTopPosY>=eyeLidTopClosePosY){
+    direction = -direction;
+  }
+
+  // draw the eye lids
+  fill(faceColour);
+  rect(-eyeLidWidth / 2, eyeLidTopPosY, eyeLidWidth, eyeLidHeight);
+  fill(eyeShadeColour);
+  rect(-eyeLidWidth / 2, eyeLidBottomPosY, eyeLidWidth, eyeLidHeight);
+  
+  // if the lids are back to open position, reset the lids, pause and direction 
+  if (eyeLidTopPosY <= eyeLidTopOpenPosY){
+    blinkPause = 100 * blinkSeed;
+    eyeLidTopPosY = eyeLidTopOpenPosY;
+    eyeLidBottomPosY = eyeLidBottomOpenPosY;
+    direction = -direction;
+  }
+}
+  pop();
+
+  // eye lines
+  push();
+  stroke(colour);
+  strokeWeight(eyeLineWidth);
+  circle(x, y, size);
+  pop();
+
+  // define the mask 
+  function eyeClip() {
+    fill(100);
+    circle(0, 0, size);
+  }
 
 }
 
-
-function eye(x, y, size, blinkPause){
-  this.x = x;
-  this.y = y;
-  this.size = size;
-  this.d = size // diameter of circle
-  this.topLidY = this.y
-  this.dy = 1
-  this.distance = 0,
-  this.angle = 0
-  this.blinkPause = 0 // duration till next bink
-  this.topLidYOrigin = this.y // original position before animation
-  this.bottomLidY = this.y - this.d
-  this.blink = function() {
-
-    // decrement blink pause duration
-    if(this.blinkPause > 0){
-      this.blinkPause -= 1
-      // return function to exit function early
-      return
-    }
-
-
-    if(this.topLidY >= this.topLidYOrigin + this.d /2 ){
-      this.blinkPause = blinkPause
-      this.dy = -this.dy
-    }else if(this.topLidY < this.topLidYOrigin){
-      this.dy = -this.dy
-    }
-
-    // animate eyelids
-    this.topLidY += this.dy
-    this.bottomLidY -= this.dy;
-  },
-  this.draw = function(){
-    // eye ball
-    noStroke()
-    fill("white")
-    circle(this.x,this.y, this.d)
-
-    // pupil
-    push();
-    fill("black")
-    // distance from mouse to eyeball center
-    this.distance = constrain(int(dist(this.x,this.y,mouseX,mouseY)), 0, height)
-    // map distance value from mouse position over eyeball radius
-    this.eyePos = map(this.d /3 , 0,500,0,this.distance )
-    this.angle = atan2(mouseY - this.y, mouseX - this.x);
-    translate(this.x, this.y);
-    rotate(this.angle);
-    // circle( distance from eye center, offset from angle, circe diameter)
-    circle(this.eyePos, 0, this.d / 3);
-    pop();
-
-    // eye lids
-    fill(250)
-    // stroke("red") // for debugging
-    rect(this.x - this.d/2, this.topLidY,  this.d, this.d)
-    rect(this.x - this.d/2, this.bottomLidY,  this.d, this.d)
-
-    // eyeliner
-    noFill()
-    strokeWeight(3)
-    stroke("black")
-    circle(this.x,this.y, this.d)
-
+// draw mouth
+function drawMouth(mouthSeed) {
+  push();
+  strokeWeight(mouthSeed * 2);
+  stroke(eyeColour);
+  ellipse(windowWidth / 2, windowHeight * 0.75, windowWidth * 0.2 + mouthSeed * 5, 1);
+  pop()
 }
-}
+
+
 
 /*
 References:

@@ -19,9 +19,8 @@ DEVICE Gyroscope by remarkability https://editor.p5js.org/remarkability/sketches
 */
 
 // settings
-let blinkPause = 100 * blinkSeed,
-eyeLineWidth = 3*eyeSeed;
 
+// let y=0;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -33,13 +32,14 @@ function setup() {
   // default settings
   noStroke();
   noFill();
+
 }
 
 function draw() {
   background(faceColour);
  
   // draw face
-  drawFace(eyeSeed, eyeColour, eyeShadeColour, blinkPause);
+  drawFace( mouthSeed);
 
  
 }
