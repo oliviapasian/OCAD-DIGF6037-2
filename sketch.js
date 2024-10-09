@@ -40,6 +40,8 @@ function draw() {
  
   // draw face
   // drawFace('initial');
+  // drawFace('shock');
+
 
   // for test
   drawFace("talking");

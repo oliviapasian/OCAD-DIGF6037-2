@@ -67,6 +67,11 @@ function drawEye(x, y, size, angle, expression) {
       drawEyeShade(eyeMoveRange*0.5, 0, eyeShadeColour, size + eyeMoveRange*0.2, expression);
       drawEyeBall(eyeMoveRange*0.5, eyeMoveRange, eyeColour, size + eyeMoveRange, expression);
       break;
+    case "shock":        
+          eyeMoveRange = round(random(0,10))-5;        
+        drawEyeShade(eyeMoveRange*0.5, 0, eyeShadeColour, size + eyeMoveRange*0.2, expression);
+        drawEyeBall(eyeMoveRange*0.5, eyeMoveRange, eyeColour, size + eyeMoveRange, expression);
+        break;
     default:
       drawEyeShade(0, 0, eyeShadeColour, size, expression);
       drawEyeBall(0, 0, eyeColour, size, expression);
@@ -106,8 +111,7 @@ function drawEyeBall(x, y, colour, size, expression) {
   switch (expression) {
     case "talking":
       circle(0-0.5*eyeMoveRange, 0+0.5*eyeMoveRange, ballSize+2*eyeMoveRange);
-      break;
-  
+      break;  
     default:
       circle(0, 0, ballSize);
       break;
@@ -182,6 +186,10 @@ function drawMouth(expression) {
         mouthHeight = round(random(10, 60));
         mouthTimer = constrain(mouthPause - round(random(1, 30)), 5, 60);
       }
+      ellipse(windowWidth / 2, windowHeight * 0.75, mouthWidth - mouthHeight * 1, mouthHeight);
+      break;
+      case "shock":
+      mouthHeight = round(random(0, 10));      
       ellipse(windowWidth / 2, windowHeight * 0.75, mouthWidth - mouthHeight * 1, mouthHeight);
       break;
       default:
