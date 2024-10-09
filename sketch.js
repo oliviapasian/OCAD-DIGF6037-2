@@ -16,12 +16,9 @@ Stories and Rules：
 Reference
 DEVICE Gyroscope by remarkability https://editor.p5js.org/remarkability/sketches/1D90zhu4a
 
-*/
 
-// settings
 
-// let y=0;
-
+let selfTone = 1109;
 function setup() {
   createCanvas(windowWidth, windowHeight);
   angleMode(DEGREES);
@@ -32,36 +29,123 @@ function setup() {
   // default settings
   noStroke();
   noFill();
+  gyroscopeSetup();
 
+  listenSetup();
+  
+  osc = new p5.Oscillator('sine');
+  osc.freq(selfTone);
+  
+  CDToBeep = random(1000,5000)
+  patient = random()
+  osc.start()
 }
+let CDToBeep
+let permissionGrant = false;
+let lastStableTime = 0;
+let inStableCooldown = false;
 
+let secondsUntilListen = 1000;
+
+let matchingMode = false;
+let matched = false;
+let soundPlayed = false;
+
+let timeEnteredMatchingMode = 0;
+
+
+
+let lastUnstableTime = 0;
+let stableTimeBeforeListen = 1000;
+let selfIdentified = false;
+let identifiedCounter = false;
+let identifiedFrequency;
+let identifiedTime = 0;
+
+//personality traits
+let patient = 0;
+
+let pairingSuccess = false;
+
+let matchedPet = []
+
+let talkStartTime = 0;
+let talkTime = 1000;
+
+let surrounding ;
 function draw() {
-  background(faceColour);
- 
-  // draw face
-  // drawFace('initial');
-  // drawFace('shock');
+  background(255);
+  updateGyroscopeData()
+  checkTalkTime()
+  fill(0)
+  stroke(8)
+  text("Stable:" + str(isStable), 0, 50)
+  text("Paired:" + str(pairingSuccess), 0, 100)
+  text("TalkStartTime：" + str(talkStartTime), 0, 150)
+  text("Identified Countr：" + str(identifiedCounter), 0, 200)
+  text("Identified self: " + str(selfIdentified), 0, 250)
+  text("Counter Frequency：" + str(matchedPet), 0, 300)
+  
+  if (isStable == false && pairingSuccess == false)
+    //Not paired and not stable // for when moving, the conversation ended successfully
+    {
+      lastUnstableTime = millis()
+    }
+  if (isStable == true && pairingSuccess == false)
+    //pairing sequence
+    {
+      if(identifiedCounter == false && millis() - lastUnstableTime > stableTimeBeforeListen)
+        {
+          identifiedFrequency = listen()
+          if(identifiedFrequency.length != 0)
+          {
+            for (let i = 0; i < identifiedFrequency.length; i++)
+              {
+                matchedPet.push(identifiedFrequency[i])
+              }
+            identifiedCounter = true;
+            identifiedTime = millis()
 
-
-  // for test
-  drawFace("talking");
-  // addPoints();
-  countPoints();
-  // checkPoints();
-drawStatus(petStatus,points);
-
-
-  // conversation face
-  // if(isStarted()){
-  // drawFace("talking");
-  // }
-
- 
+          }
+        }
+      
+      if(millis() - lastUnstableTime > stableTimeBeforeListen + CDToBeep && selfIdentified == false && identifiedCounter == false)
+        // if is stable for 1 seconds + a random time between 1 - 3 seconds
+        {
+          if(talkStartTime == 0)
+            {
+              talk(1,talkTime)
+            }
+          talkStartTime = millis()
+          
+          selfIdentified = true;
+        }
+      else if(millis() - lastUnstableTime > identifiedTime + 1000 && selfIdentified == false && identifiedCounter == true)
+        {
+          if(talkStartTime == 0)
+            {
+              talk(1,talkTime)
+            }
+          talkStartTime = millis()
+          
+          selfIdentified = true;
+          
+        }
+      if(selfIdentified == true && identifiedCounter == true)
+        {
+          pairingSuccess = true
+          //NOW we run code for seudo talk
+        }
+    }
+  
+  if (isStable == true && pairingSuccess == true)
+    //paired up and talk // For when talking in stationary position
+    {
+      
+    }
+  if (isStable == false && pairingSuccess == true)
+    //when moved away in the middle of conversation, be MAD!!!!!
+    {
+      
+    }
 }
-
-
-
-/*
-References:
-
-*/
