@@ -84,7 +84,7 @@ function drawEyeShade(x, y, colour, eyeSize, expression) {
 
 // draw eye
 function drawEyeBall(x, y, colour, size, expression) {
-//  let ballSize = size * 0.8;
+
   push();
   translate(x, y);
 

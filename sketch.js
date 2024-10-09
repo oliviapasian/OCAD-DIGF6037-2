@@ -43,6 +43,11 @@ function draw() {
 
   // for test
   drawFace("talking");
+  // addPoints();
+  countPoints();
+  // checkPoints();
+drawStatus(petStatus,points);
+
 
   // conversation face
   // if(isStarted()){
