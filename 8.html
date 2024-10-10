@@ -13,16 +13,31 @@
     const
         petName = "Ollie",
         petID = 7,
-        faceColour = [244,254,244],
-        eyeSeed = 1,
-        blinkSpeed = -4,
-        blinkSeed = 0,
-        eyeColour = [11,23,14],
-        eyeShadeColour = [212,190,199],
-        mouthSeed = 4,
-        talkativeLevel = -1;
+        faceColour = [232,244,237],
+        eyeSeed = 3,
+        blinkSpeed = 0,
+        blinkSeed = -4,
+        eyeColour = [1,0,15],
+        eyeShadeColour = [186,191,216],
+        mouthSeed = 0,
+        conversationLengthSeed = -2,
+        pitchSeed = -2;
+        //Conversation personality
+        //The main pitch of this pet when they are in a conversation
+        let ConversationMainPitch = 750;
+        //the randomized pitch difference  final piitch will be MainPitch + random(-var, var) 
+        let ConversationPitchVariation = 2000;  
+        //How fast the pet talks, in milliseconds
+        let ConversationMainSpeed = 73 ;
+        //the randomized speed difference
+        let ConversationSpeedVariation = 8;
+        // this is a randomed time reduced from the talk time, so it creates a little gap between two talks, the final talk time will be 
+        //2000(default talk time in milliseconds) - random(0, 500)(default is 500) = the conversation will last 2000~1500 milliseconds
+        let ConversationTimeVariation = 200;
+        let patient = 1;
+        let selfTone = 1480;
     
-</script><script>const pitches = ["C5","D5","E5","F5","G5","A5","B5","C6","D6","E6","F6","G6"];
+</script><script>//- const pitches = ["C5","D5","E5","F5","G5","A5","B5","C6","D6","E6","F6","G6"];
   // rules  # to discuss
   const rewardForNewPet = 10, 
   rewardForHuman = Math.round(Math.random()*15) - 7,
@@ -62,13 +77,18 @@ let direction = 1;
 let pointRecordForPets=new Array(12).fill(0),
   pointRecordForHuman=0,
   points=5;
-  let petStatus;</script>                       <!-- inject:js -->
-<script src="_awards.js"></script>
-<script src="_draw.js"></script>
-<script src="_expressions.js"></script>
-<script src="_expression_triggers.js"></script>
-<script src="_pitch.js"></script>
-<script src="_status.js"></script>
+  let petStatus;
+const pitches = [1109, 1480, 2093];</script>                       <!-- inject:js -->
+<script src="./_awards.js"></script>
+<script src="./_draw.js"></script>
+<script src="./_expression_triggers.js"></script>
+<script src="./_expressions.js"></script>
+<script src="./_pitch.js"></script>
+<script src="./_status.js"></script>
+<script src="./conversation.js"></script>
+<script src="./gyro.js"></script>
+<script src="./listen.js"></script>
+<script src="./talk.js"></script>
 <!-- endinject --><script src="sketch.js"></script>
 </body>
 </html>

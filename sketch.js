@@ -21,7 +21,7 @@ DEVICE Gyroscope by remarkability https://editor.p5js.org/remarkability/sketches
 //Identifying range 1100, 1600, 2100
 // conversation range 
 
-let selfTone = 2093;
+// let selfTone = 2093;
 
 function preload() {
   heart = loadImage('./assets/heart.gif');
@@ -70,7 +70,7 @@ let identifiedFrequency;
 let identifiedTime = 0;
 
 //personality traits
-let patient = 2;
+// let patient = 2;
 
 let pairingSuccess = false;
 
@@ -91,17 +91,17 @@ let talkBlock = 2
 let currentTalkBlock = 0;
 
 //Conversation personality
-//The main pitch of this pet when they are in a conversation
-let ConversationMainPitch = 2000;
-//the randomized pitch difference  final piitch will be MainPitch + random(-var, var) 
-let ConversationPitchVariation = 100;  
-//How fast the pet talks, in milliseconds
-let ConversationMainSpeed = 50 ;
-//the randomized speed difference
-let ConversationSpeedVariation = 20;
-// this is a randomed time reduced from the talk time, so it creates a little gap between two talks, the final talk time will be 
-//2000(default talk time in milliseconds) - random(0, 500)(default is 500) = the conversation will last 2000~1500 milliseconds
-let ConversationTimeVariation = 500
+// //The main pitch of this pet when they are in a conversation
+// let ConversationMainPitch = 2000;
+// //the randomized pitch difference  final piitch will be MainPitch + random(-var, var) 
+// let ConversationPitchVariation = 100;  
+// //How fast the pet talks, in milliseconds
+// let ConversationMainSpeed = 50 ;
+// //the randomized speed difference
+// let ConversationSpeedVariation = 20;
+// // this is a randomed time reduced from the talk time, so it creates a little gap between two talks, the final talk time will be 
+// //2000(default talk time in milliseconds) - random(0, 500)(default is 500) = the conversation will last 2000~1500 milliseconds
+// let ConversationTimeVariation = 500
 
 let talkOffset = 0;
 let convoDuration = 0;
@@ -131,7 +131,7 @@ function resetPet()
   identifiedTime = 0;
 
   //personality traits
-  patient = 2;
+  // patient = 2;
 
   pairingSuccess = false;
 
