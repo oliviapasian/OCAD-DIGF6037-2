@@ -17,15 +17,14 @@ Reference
 DEVICE Gyroscope by remarkability https://editor.p5js.org/remarkability/sketches/1D90zhu4a
 */
 
+//Pitch range
+//Identifying range 1100, 1600, 2100
+// conversation range 
 
-let selfTone = 1109;
+let selfTone = 2093;
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  angleMode(DEGREES);
-
-  // for test, but also cute
-  console.log("Hello! My name is " + petName);
-
+  angleMode(DEGREES)
   // default settings
   noStroke();
   noFill();
@@ -33,11 +32,13 @@ function setup() {
 
   listenSetup();
   
+  conversationSetup()
+  
   osc = new p5.Oscillator('sine');
   osc.freq(selfTone);
   
   CDToBeep = random(1000,5000)
-  patient = random()
+  patient = 2 //ceil(random(1,5))
   osc.start()
 }
 let CDToBeep
@@ -63,7 +64,7 @@ let identifiedFrequency;
 let identifiedTime = 0;
 
 //personality traits
-let patient = 0;
+let patient = 2;
 
 let pairingSuccess = false;
 
@@ -73,18 +74,99 @@ let talkStartTime = 0;
 let talkTime = 1000;
 
 let surrounding ;
+
+
+
+// conversation related
+let conversationStartTime = 0;
+let yourTurnToTalk = false;
+let talkedInThisBlock = false;
+let talkBlock = 2
+let currentTalkBlock = 0;
+
+//Conversation personality
+//The main pitch of this pet when they are in a conversation
+let ConversationMainPitch = 2000;
+//the randomized pitch difference  final piitch will be MainPitch + random(-var, var) 
+let ConversationPitchVariation = 100;  
+//How fast the pet talks, in milliseconds
+let ConversationMainSpeed = 50 ;
+//the randomized speed difference
+let ConversationSpeedVariation = 20;
+// this is a randomed time reduced from the talk time, so it creates a little gap between two talks, the final talk time will be 
+//2000(default talk time in milliseconds) - random(0, 500)(default is 500) = the conversation will last 2000~1500 milliseconds
+let ConversationTimeVariation = 500
+
+let talkOffset = 0;
+let convoDuration = 0;
+
+let loopStartTime = 0;
+
+function resetPet()
+{
+  lastStableTime = 0;
+  inStableCooldown = false;
+
+  secondsUntilListen = 1000;
+
+  matchingMode = false;
+  matched = false;
+  soundPlayed = false;
+
+  timeEnteredMatchingMode = 0;
+
+
+
+  lastUnstableTime = 0;
+  stableTimeBeforeListen = 1000;
+  selfIdentified = false;
+  identifiedCounter = false;
+  identifiedFrequency = [];
+  identifiedTime = 0;
+
+  //personality traits
+  patient = 2;
+
+  pairingSuccess = false;
+
+  matchedPet = []
+
+  talkStartTime = 0;
+  talkTime = 1000;
+
+
+
+
+  // conversation relatedconversationStartTime = 0;
+  yourTurnToTalk = false;
+  talkedInThisBlock = false;
+  talkBlock = 2
+  currentTalkBlock = 0;
+
+  talkOffset = 0;
+  convoDuration = 0;
+  lastUnstableTime = millis()
+  loopStartTime = millis()
+}
+
 function draw() {
   background(255);
   updateGyroscopeData()
   checkTalkTime()
+  updateConversation()
   fill(0)
   stroke(8)
+
+  
   text("Stable:" + str(isStable), 0, 50)
   text("Paired:" + str(pairingSuccess), 0, 100)
   text("TalkStartTime：" + str(talkStartTime), 0, 150)
   text("Identified Countr：" + str(identifiedCounter), 0, 200)
   text("Identified self: " + str(selfIdentified), 0, 250)
   text("Counter Frequency：" + str(matchedPet), 0, 300)
+  text("Patient:" + str(patient), 0, 350)
+  text(str(talkOffset), 0, 400)
+  text("Total Rot:" + str(totalRot), 0, 450)
   
   if (isStable == false && pairingSuccess == false)
     //Not paired and not stable // for when moving, the conversation ended successfully
@@ -105,6 +187,7 @@ function draw() {
               }
             identifiedCounter = true;
             identifiedTime = millis()
+            //BUG, HERE
 
           }
         }
@@ -119,8 +202,10 @@ function draw() {
           talkStartTime = millis()
           
           selfIdentified = true;
+          yourTurnToTalk = true;
         }
-      else if(millis() - lastUnstableTime > identifiedTime + 1000 && selfIdentified == false && identifiedCounter == true)
+      //BUG in 188 if statement, itendified time is an abusolute value but millis() - lastUnstableTime is a relative value
+      else if(millis() - lastUnstableTime > identifiedTime + 1000 - loopStartTime && selfIdentified == false && identifiedCounter == true)
         {
           if(talkStartTime == 0)
             {
@@ -129,23 +214,61 @@ function draw() {
           talkStartTime = millis()
           
           selfIdentified = true;
+          yourTurnToTalk = false;
           
         }
       if(selfIdentified == true && identifiedCounter == true)
         {
           pairingSuccess = true
           //NOW we run code for seudo talk
+          conversationStartTime = millis()
+          if (yourTurnToTalk == true)
+            {
+              talkOffset = 0
+            }
+          else
+            {
+              talkOffset = talkBlock
+            }
         }
     }
   
   if (isStable == true && pairingSuccess == true)
     //paired up and talk // For when talking in stationary position
-    {
+
+    {    
+      //updateing conversation related code
+      convoDuration = floor((millis() - conversationStartTime) / 1000) + talkOffset
+      if(convoDuration % (talkBlock*2) == 0 && talkedInThisBlock == false)
+        {
+          
+        if(patient <= 0)
+          {
+            //if no patient then we disconnect
+          talk(1,talkTime)
+          talkStartTime = millis()
+          talkedInThisBlock = true;
+          resetPet()
+          }
+        else
+          {
+          convoTimeLeft += talkBlock*1000
+          talkedInThisBlock = true;
+          }
+          
+        }
+      if(floor((convoDuration - talkOffset) / (talkBlock*2)) != currentTalkBlock)
+        {
+          currentTalkBlock = floor((convoDuration - talkOffset) / (talkBlock*2))
+          talkedInThisBlock = false
+          patient -= 1
+        }
       
     }
   if (isStable == false && pairingSuccess == true)
     //when moved away in the middle of conversation, be MAD!!!!!
     {
-      
+      convoTimeLeft += 1000
+      resetPet()
     }
 }
