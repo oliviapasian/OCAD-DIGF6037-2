@@ -68,7 +68,7 @@ function updateGyroscopeData()
   prevRotX = rotationX
   prevRotZ = rotationZ
   
-  if (totalRot >= 0.03)
+  if (totalRot >= 8)
     {
       isStable = false
     }
