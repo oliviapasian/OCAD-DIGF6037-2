@@ -20,7 +20,11 @@ DEVICE Gyroscope by remarkability https://editor.p5js.org/remarkability/sketches
 
 // settings
 
-// let y=0;
+
+function preload() {
+  heart = loadImage('./assets/heart.gif');
+  goal = loadImage('./assets/heart-goal.gif');
+}
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -47,8 +51,8 @@ function draw() {
   drawFace("talking");
   // addPoints();
   countPoints();
-  // checkPoints();
-drawStatus(petStatus,points);
+  checkPoints();
+  drawStatus();
 
 
   // conversation face
