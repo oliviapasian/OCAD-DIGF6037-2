@@ -1,2 +1,4 @@
-p5types/
-libraries/
+
+// ignore files from p5
+libraries/**
+p5types/**
