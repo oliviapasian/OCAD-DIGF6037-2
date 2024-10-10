@@ -3,6 +3,7 @@
 
 //
 function drawStatus(){
+
     push();
     stroke(210);
     strokeWeight(4);
@@ -10,8 +11,6 @@ function drawStatus(){
     let heartX = constrain(leftEyeX+(rightEyeX-leftEyeX)/goal*points-heartSize/2, leftEyeX-heartSize/2,rightEyeX-heartSize/2), heartY = statusY-heartSize/2;
     
     line(leftEyeX, statusY,rightEyeX, statusY);
-    // image(goal, rightEyeX-heartSize/2, heartY, heartSize, heartSize);
-    // image(goal, rightEyeX-heartSize/2, heartY, heartSize, heartSize);
 
     noStroke();
     textSize(18);
@@ -34,6 +33,9 @@ function drawStatus(){
                 textSize(14);
             text(points, heartX+heartSize/2-4, heartY+heartSize/2+7);
             break;
+            default:
+                heart.setFrame(constrain(1+Math.floor(points/60*8),1,8));
+                image(heart, heartX,heartY,heartSize,heartSize);       
     }
     pop();
 }

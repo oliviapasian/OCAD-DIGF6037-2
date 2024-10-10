@@ -23,9 +23,10 @@ DEVICE Gyroscope by remarkability https://editor.p5js.org/remarkability/sketches
 
 // let selfTone = 2093;
 
+
 function preload() {
-  heart = loadImage('./assets/heart.gif');
-  heartGoal = loadImage('./assets/heart-goal.gif');
+   heart = loadImage('./assets/heart.gif');
+   heartGoal = loadImage('./assets/heart-goal.gif');
 }
 
 function setup() {
@@ -35,7 +36,7 @@ function setup() {
   noStroke();
   noFill();
   gyroscopeSetup();
-
+  
   listenSetup();
   
   conversationSetup()
@@ -100,43 +101,43 @@ function resetPet()
 {
   lastStableTime = 0;
   inStableCooldown = false;
-
+  
   secondsUntilListen = 1000;
-
+  
   matchingMode = false;
   matched = false;
   soundPlayed = false;
-
+  
   timeEnteredMatchingMode = 0;
-
-
-
+  
+  
+  
   lastUnstableTime = 0;
   stableTimeBeforeListen = 1000;
   selfIdentified = false;
   identifiedCounter = false;
   identifiedFrequency = [];
   identifiedTime = 0;
-
+  
   //personality traits
-  // patient = 2;
-
+  patient = 2;
+  
   pairingSuccess = false;
-
+  
   matchedPet = []
-
+  
   talkStartTime = 0;
   talkTime = 1000;
-
-
-
-
+  
+  
+  
+  
   // conversation relatedconversationStartTime = 0;
   yourTurnToTalk = false;
   talkedInThisBlock = false;
   talkBlock = 2
   currentTalkBlock = 0;
-
+  
   talkOffset = 0;
   convoDuration = 0;
   lastUnstableTime = millis()
@@ -144,7 +145,7 @@ function resetPet()
 }
 
 function draw() {
-  background(255);
+  background(faceColour);
   updateGyroscopeData()
   checkTalkTime()
   updateConversation()
@@ -164,81 +165,86 @@ function draw() {
   // for test
   // isStable = false; pairingSuccess = false;
 
+  // console.log(isStable+" "+pairingSuccess+" "+convoTimeLeft+" "+patient)
+
   if (isStable == false && pairingSuccess == false)
     //Not paired and not stable // for when moving, the conversation ended successfully
     {
       lastUnstableTime = millis();
       drawFace("initial");
-      // drawStatus();
+      drawStatus();
       console.log("hi")
     }
   if (isStable == true && pairingSuccess == false)
     //pairing sequence
     {
       drawFace("shock");
-      // drawStatus();
+      drawStatus();
       if(identifiedCounter == false && millis() - lastUnstableTime > stableTimeBeforeListen)
         {
           identifiedFrequency = listen()
           if(identifiedFrequency.length != 0)
-          {
-            for (let i = 0; i < identifiedFrequency.length; i++)
-              {
-                matchedPet.push(identifiedFrequency[i])
-              }
-            identifiedCounter = true;
-            identifiedTime = millis()
-            //BUG, HERE
-
-          }
-        }
-      
-      if(millis() - lastUnstableTime > stableTimeBeforeListen + CDToBeep && selfIdentified == false && identifiedCounter == false)
-        // if is stable for 1 seconds + a random time between 1 - 3 seconds
-        {
-          if(talkStartTime == 0)
             {
-              talk(1,talkTime)
+              for (let i = 0; i < identifiedFrequency.length; i++)
+                {
+                  matchedPet.push(identifiedFrequency[i])
+                }
+                identifiedCounter = true;
+                identifiedTime = millis()
+                //BUG, HERE
+                
+              }
+            }
+            
+            if(millis() - lastUnstableTime > stableTimeBeforeListen + CDToBeep && selfIdentified == false && identifiedCounter == false)
+              // if is stable for 1 seconds + a random time between 1 - 3 seconds
+            {
+              if(talkStartTime == 0)
+                {
+                  talk(1,talkTime)
             }
           talkStartTime = millis()
           
           selfIdentified = true;
           yourTurnToTalk = true;
         }
-      //BUG in 188 if statement, itendified time is an abusolute value but millis() - lastUnstableTime is a relative value
-      else if(millis() - lastUnstableTime > identifiedTime + 1000 - loopStartTime && selfIdentified == false && identifiedCounter == true)
-        {
-          if(talkStartTime == 0)
-            {
-              talk(1,talkTime)
-            }
+        //BUG in 188 if statement, itendified time is an abusolute value but millis() - lastUnstableTime is a relative value
+        else if(millis() - lastUnstableTime > identifiedTime + 1000 - loopStartTime && selfIdentified == false && identifiedCounter == true)
+          {
+            if(talkStartTime == 0)
+              {
+                talk(1,talkTime)
+              }
           talkStartTime = millis()
           
           selfIdentified = true;
           yourTurnToTalk = false;
           
         }
-      if(selfIdentified == true && identifiedCounter == true)
-        {
-          pairingSuccess = true
-          //NOW we run code for seudo talk
-          conversationStartTime = millis()
-          if (yourTurnToTalk == true)
-            {
-              talkOffset = 0
+        if(selfIdentified == true && identifiedCounter == true)
+          {
+            pairingSuccess = true
+            //NOW we run code for seudo talk
+            conversationStartTime = millis()
+            if (yourTurnToTalk == true)
+              {
+                talkOffset = 0
+                updatePoints();
+              }
+              else
+              {
+                updatePoints();
+                talkOffset = talkBlock
+              }
             }
-          else
-            {
-              talkOffset = talkBlock
-            }
-        }
-    }
-  
-  if (isStable == true && pairingSuccess == true)
+          }
+          
+          if (isStable == true && pairingSuccess == true)
     //paired up and talk // For when talking in stationary position
-  drawFace("talking");
-  drawStatus();
-    {    
+  
+  {    
+      drawFace("talking");
+      drawStatus();
       //updateing conversation related code
       convoDuration = floor((millis() - conversationStartTime) / 1000) + talkOffset
       if(convoDuration % (talkBlock*2) == 0 && talkedInThisBlock == false)
@@ -247,6 +253,7 @@ function draw() {
         if(patient <= 0)
           {
             //if no patient then we disconnect
+            updatePoints();
           talk(1,talkTime)
           talkStartTime = millis()
           talkedInThisBlock = true;
@@ -269,9 +276,10 @@ function draw() {
     }
   if (isStable == false && pairingSuccess == true)
     //when moved away in the middle of conversation, be MAD!!!!!
-  drawFace("shock");
-  drawStatus();
-    {
+  {
+      drawFace("shock");
+
+      drawStatus();
       convoTimeLeft += 1000
       resetPet()
     }
