@@ -27,22 +27,37 @@
 // }
 
 // 
-function addPoints(){
-    if ( sentPitch() && receivedPitch() && tellPitch() ){
-        let pitch = tellPitch();
-        if (pitch == pitches[petID] && isHuman()){
-          pointRecordForHuman += rewardForHuman;
-        }else if (pitches.includes(pitch)){
-            if( !isStarted()){ 
-            pointRecordForPets += rewardForNewPet; 
-        }else{
-            pointRecordForPets += rewardForConversation; 
-        }       
-        }  
-        return true
-        }
+// function addPoints(){
+//     if ( sentPitch() && receivedPitch() && tellPitch() ){
+//         let pitch = tellPitch();
+//         if (pitch == pitches[petID] && isHuman()){
+//           pointRecordForHuman += rewardForHuman;
+//         }else if (pitches.includes(pitch)){
+//             if( !isStarted()){ 
+//             pointRecordForPets += rewardForNewPet; 
+//         }else{
+//             pointRecordForPets += rewardForConversation; 
+//         }       
+//         }  
+//         return true
+//         }
         
+// }
+
+function updatePoints(){
+    // addPoints();
+    // countPoints();
+    points += rewardForConversation;
+    checkPoints();
 }
+// function addPoints(){
+//     if(pitches.includes(pitch)){
+//         pointRecordForPets += rewardForConversation;
+//     }else if(pitchesHuman.includes(pitch)){
+//         pointRecordForHuman += rewardForHuman;
+//     }
+//         return true         
+// }
 
 // 
 function countPoints(){
@@ -52,12 +67,11 @@ function countPoints(){
 
 //
 function checkPoints(){
-    let status;
 if(points>=goal){
-    status = "win";
-}else if (points<0){
-    status = "sad";
+    petStatus = "win";
+}else if (points<=0){
+    petStatus = "sad";
 }else{
-    status = "counting"
+    petStatus = "counting"
 }
 }

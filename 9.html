@@ -13,16 +13,31 @@
     const
         petName = "Nala",
         petID = 8,
-        faceColour = [252,231,233],
-        eyeSeed = -2,
-        blinkSpeed = 3,
+        faceColour = [244,253,242],
+        eyeSeed = 1,
+        blinkSpeed = -3,
         blinkSeed = -1,
-        eyeColour = [4,28,6],
-        eyeShadeColour = [183,180,214],
-        mouthSeed = 0,
-        talkativeLevel = -4;
+        eyeColour = [2,26,10],
+        eyeShadeColour = [178,207,202],
+        mouthSeed = -2,
+        conversationLengthSeed = 1,
+        pitchSeed = -3;
+        //Conversation personality
+        //The main pitch of this pet when they are in a conversation
+        let ConversationMainPitch = 450;
+        //the randomized pitch difference  final piitch will be MainPitch + random(-var, var) 
+        let ConversationPitchVariation = 0;  
+        //How fast the pet talks, in milliseconds
+        let ConversationMainSpeed = 79 ;
+        //the randomized speed difference
+        let ConversationSpeedVariation = 12;
+        // this is a randomed time reduced from the talk time, so it creates a little gap between two talks, the final talk time will be 
+        //2000(default talk time in milliseconds) - random(0, 500)(default is 500) = the conversation will last 2000~1500 milliseconds
+        let ConversationTimeVariation = 150;
+        let patient = 5;
+        let selfTone = 2093;
     
-</script><script>const pitches = ["C5","D5","E5","F5","G5","A5","B5","C6","D6","E6","F6","G6"];
+</script><script>//- const pitches = ["C5","D5","E5","F5","G5","A5","B5","C6","D6","E6","F6","G6"];
   // rules  # to discuss
   const rewardForNewPet = 10, 
   rewardForHuman = Math.round(Math.random()*15) - 7,
@@ -62,13 +77,18 @@ let direction = 1;
 let pointRecordForPets=new Array(12).fill(0),
   pointRecordForHuman=0,
   points=5;
-  let petStatus;</script>                       <!-- inject:js -->
+  let petStatus;
+//- const pitches = [1109, 1480, 2093];</script>                       <!-- inject:js -->
 <script src="./awards.js"></script>
+<script src="./conversation.js"></script>
 <script src="./draw.js"></script>
-<script src="./expressions.js"></script>
 <script src="./expression_triggers.js"></script>
+<script src="./expressions.js"></script>
+<script src="./gyro.js"></script>
+<script src="./listen.js"></script>
 <script src="./pitch.js"></script>
 <script src="./status.js"></script>
+<script src="./talk.js"></script>
 <!-- endinject --><script src="sketch.js"></script>
 </body>
 </html>
