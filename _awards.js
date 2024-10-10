@@ -52,12 +52,11 @@ function countPoints(){
 
 //
 function checkPoints(){
-    let status;
 if(points>=goal){
-    status = "win";
-}else if (points<0){
-    status = "sad";
+    petStatus = "win";
+}else if (points<=0){
+    petStatus = "sad";
 }else{
-    status = "counting"
+    petStatus = "counting"
 }
 }

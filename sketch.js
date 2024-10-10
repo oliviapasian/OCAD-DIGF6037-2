@@ -22,6 +22,12 @@ DEVICE Gyroscope by remarkability https://editor.p5js.org/remarkability/sketches
 // conversation range 
 
 let selfTone = 2093;
+
+function preload() {
+  heart = loadImage('./assets/heart.gif');
+  goal = loadImage('./assets/heart-goal.gif');
+}
+
 function setup() {
   createCanvas(windowWidth, windowHeight);
   angleMode(DEGREES)
