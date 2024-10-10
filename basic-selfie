@@ -1,3 +1,5 @@
+//This part of the code is for the selfie camera for phone pets. This hasn't been integrated with the other code yet so it is just a basic version of the functionality.
+
 // Reference:
 // https://editor.p5js.org/EthanHermsey/sketches/yjqWDF5FA
 // Used this example as a reference for how to save still images from a video and display them. This example was used more in an animation context so I changed it so rather than appearing as one-at-a-time image frames, it can display each still image onto the page as the photos are taken.
