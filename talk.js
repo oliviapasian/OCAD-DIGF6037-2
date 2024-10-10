@@ -9,6 +9,7 @@ function talk(index, duration_l)
   talkDuration = duration_l
   startTalkTime = millis()
   osc.start();  
+  listenClosed = true
 
 }
 
@@ -17,5 +18,6 @@ function checkTalkTime()
   if( millis() - startTalkTime > talkDuration)
     {
       osc.stop();
+      listenClosed = false;
     }
 }
