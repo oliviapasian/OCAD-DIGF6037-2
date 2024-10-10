@@ -11,7 +11,7 @@ function conversationSetup()
 {
   convoosc = new p5.Oscillator('sine');
   convoosc.freq(1100); // Set frequency to 440 Hz (A4)
-  ConversationTimeVariation = random(0, ConversationTimeVariation)
+  // ConversationTimeVariation = random(0, ConversationTimeVariation)
 }
 function updateConversation()
 {//run this in draw()

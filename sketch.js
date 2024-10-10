@@ -25,7 +25,7 @@ DEVICE Gyroscope by remarkability https://editor.p5js.org/remarkability/sketches
 
 function preload() {
   heart = loadImage('./assets/heart.gif');
-  goal = loadImage('./assets/heart-goal.gif');
+  heartGoal = loadImage('./assets/heart-goal.gif');
 }
 
 function setup() {
@@ -90,18 +90,6 @@ let talkedInThisBlock = false;
 let talkBlock = 2
 let currentTalkBlock = 0;
 
-//Conversation personality
-// //The main pitch of this pet when they are in a conversation
-// let ConversationMainPitch = 2000;
-// //the randomized pitch difference  final piitch will be MainPitch + random(-var, var) 
-// let ConversationPitchVariation = 100;  
-// //How fast the pet talks, in milliseconds
-// let ConversationMainSpeed = 50 ;
-// //the randomized speed difference
-// let ConversationSpeedVariation = 20;
-// // this is a randomed time reduced from the talk time, so it creates a little gap between two talks, the final talk time will be 
-// //2000(default talk time in milliseconds) - random(0, 500)(default is 500) = the conversation will last 2000~1500 milliseconds
-// let ConversationTimeVariation = 500
 
 let talkOffset = 0;
 let convoDuration = 0;
@@ -160,28 +148,35 @@ function draw() {
   updateGyroscopeData()
   checkTalkTime()
   updateConversation()
-  fill(0)
-  stroke(8)
+  // fill(0)
+  // stroke(8)
 
   
-  text("Stable:" + str(isStable), 0, 50)
-  text("Paired:" + str(pairingSuccess), 0, 100)
-  text("TalkStartTime：" + str(talkStartTime), 0, 150)
-  text("Identified Countr：" + str(identifiedCounter), 0, 200)
-  text("Identified self: " + str(selfIdentified), 0, 250)
-  text("Counter Frequency：" + str(matchedPet), 0, 300)
-  text("Patient:" + str(patient), 0, 350)
-  text(str(talkOffset), 0, 400)
-  text("Total Rot:" + str(totalRot), 0, 450)
-  
+  // text("Stable:" + str(isStable), 0, 50)
+  // text("Paired:" + str(pairingSuccess), 0, 100)
+  // text("TalkStartTime：" + str(talkStartTime), 0, 150)
+  // text("Identified Countr：" + str(identifiedCounter), 0, 200)
+  // text("Identified self: " + str(selfIdentified), 0, 250)
+  // text("Counter Frequency：" + str(matchedPet), 0, 300)
+  // text("Patient:" + str(patient), 0, 350)
+  // text(str(talkOffset), 0, 400)
+  // text("Total Rot:" + str(totalRot), 0, 450)
+  // for test
+  // isStable = false; pairingSuccess = false;
+
   if (isStable == false && pairingSuccess == false)
     //Not paired and not stable // for when moving, the conversation ended successfully
     {
-      lastUnstableTime = millis()
+      lastUnstableTime = millis();
+      drawFace("initial");
+      // drawStatus();
+      console.log("hi")
     }
   if (isStable == true && pairingSuccess == false)
     //pairing sequence
     {
+      drawFace("shock");
+      // drawStatus();
       if(identifiedCounter == false && millis() - lastUnstableTime > stableTimeBeforeListen)
         {
           identifiedFrequency = listen()
@@ -241,7 +236,8 @@ function draw() {
   
   if (isStable == true && pairingSuccess == true)
     //paired up and talk // For when talking in stationary position
-
+  drawFace("talking");
+  drawStatus();
     {    
       //updateing conversation related code
       convoDuration = floor((millis() - conversationStartTime) / 1000) + talkOffset
@@ -273,6 +269,8 @@ function draw() {
     }
   if (isStable == false && pairingSuccess == true)
     //when moved away in the middle of conversation, be MAD!!!!!
+  drawFace("shock");
+  drawStatus();
     {
       convoTimeLeft += 1000
       resetPet()
