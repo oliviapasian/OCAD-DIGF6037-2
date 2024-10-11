@@ -1,8 +1,62 @@
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
 }
-
 canvas {
   display: block;
+}
+
+#infoPanel {
+  display: inline-block;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  height: 90%;
+  background-color: rgba(183,213,180, 0.6);
+  padding: 25px;
+  z-index: 9999;
+  border-radius: 20px;
+  border: none;
+}
+
+#infoPanel h2 {
+  margin-top: 2px;
+  font-size: 18px;
+  font-family: "dunbar-tall", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  color: #083828;
+  text-align: center;
+}
+
+#infoPanel p {
+  font-size: 1vw;
+  font-family: dunbar-text, sans-serif;
+  font-weight: 500;
+  font-style: normal;
+  color: #083828;
+  text-align: center;
+  padding-left: 30px;
+    padding-right: 30px;
+}
+
+.sensorAccessButton {
+  position: absolute;
+  top: 250px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #083828;
+  border: none;
+  color: white;
+  padding: 15px 30px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+  font-family: dunbar-tall, sans-serif;
+  font-weight: 400;
+  font-style: normal;
 }
