@@ -93,7 +93,7 @@
       <p>
         Can you help me?
       </p>
-      <button class="sensorAccessButton">Adopt ME</button>
+      <button id="infoButton" onclick="document.getElementById('infoPanel').style.display = 'none';" class="sensorAccessButton">Adopt ME</button>
         <p><small> Allow Sensor Access </small></p></div>
 </div>
 <script> // character settings
@@ -180,5 +180,6 @@ let pointRecordForPets=new Array(12).fill(0),
 <script src="./status.js"></script>
 <script src="./talk.js"></script>
 <!-- endinject --><script src="sketch.js"></script><script>window.onresize = ()=>location.reload();
-//- window.onresize = NaN;</script></body>
+//- window.onresize = NaN;
+</script></body>
 </html>
