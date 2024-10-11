@@ -21,7 +21,7 @@ let gyroslider;
 
 function gyroscopeSetup()
 {
-  gyroslider = createSlider(0, 50, 0); // min, max, start
+  gyroslider = createSlider(0, 50, 8); // min, max, start
   gyroslider.position(0,400); // x and y
   gyroslider.size(400, 20); // width and height
     // DeviceOrientationEvent, DeviceMotionEvent
@@ -75,7 +75,8 @@ function updateGyroscopeData()
   prevRotX = rotationX
   prevRotZ = rotationZ
   
-  totalRot = gyroslider.Value
+  totalRot = gyroslider.value()
+  console.log("totalRot is" + str(totalRot))
   if (totalRot >= 8)
     {
       isStable = false
