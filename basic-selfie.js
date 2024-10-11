@@ -14,20 +14,14 @@ let cameraHeight = 240;
 function setup() {
   createCanvas(1000, 500); // (change in our final code)
 
-  // this piece is from the referenced example, creating a constraint object for the video capture
-  let videoConstraints = {
-    video: {
-      mandatory: {
-        maxWidth: cameraWidth,
-        maxHeight: cameraHeight,
-      },
-    },
-    audio: false,
-  };
-
   cameraButton = createButton("Selfie ON/OFF"); // turn on/off the camera
   cameraButton.position(10, 10);
   cameraButton.mousePressed(cameraOn);
+  
+  cameraButton.style('border-radius', '40px');
+  cameraButton.style("width", "70px");
+  cameraButton.style("height", "70px");
+  cameraButton.style("background-color", "white");
 }
 
 //turn on/off camera
@@ -85,3 +79,4 @@ function draw() {
     }
   }
 }
+
