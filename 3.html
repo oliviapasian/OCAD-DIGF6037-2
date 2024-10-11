@@ -13,28 +13,29 @@
     const
         petName = "Luna",
         petID = 2,
-        faceColour = [238,241,243],
-        eyeSeed = 3,
-        blinkSpeed = -2,
-        blinkSeed = 0,
-        eyeColour = [17,15,22],
-        eyeShadeColour = [184,182,186],
-        mouthSeed = -2,
-        conversationLengthSeed = -4,
-        pitchSeed = -3;
+        faceColour = [241,251,248],
+        eyeSeed = -2,
+        blinkSpeed = 2,
+        blinkSeed = 2,
+        eyeColour = [29,17,15],
+        eyeShadeColour = [217,201,188],
+        mouthSeed = 2,
+        conversationLengthSeed = 1,
+        pitchSeed = 2;
         //Conversation personality
         //The main pitch of this pet when they are in a conversation
-        let ConversationMainPitch = 550;
+        let ConversationMainPitch = 650;
         //the randomized pitch difference  final piitch will be MainPitch + random(-var, var) 
-        let ConversationPitchVariation = 2000;  
+        let ConversationPitchVariation = -500;  
         //How fast the pet talks, in milliseconds
-        let ConversationMainSpeed = 61 ;
+        let ConversationMainSpeed = 31 ;
         //the randomized speed difference
         let ConversationSpeedVariation = 18;
         // this is a randomed time reduced from the talk time, so it creates a little gap between two talks, the final talk time will be 
         //2000(default talk time in milliseconds) - random(0, 500)(default is 500) = the conversation will last 2000~1500 milliseconds
-        let ConversationTimeVariation = 150;
-        let patient = 4;
+        let ConversationTimeVariation = 450;
+        let defaultPatient = 3;
+        let patient = defaultPatient;
         let selfTone = 2093;
     
 </script><script>//- const pitches = ["C5","D5","E5","F5","G5","A5","B5","C6","D6","E6","F6","G6"];

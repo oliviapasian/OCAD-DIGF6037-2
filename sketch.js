@@ -23,6 +23,7 @@ DEVICE Gyroscope by remarkability https://editor.p5js.org/remarkability/sketches
 
 // let selfTone = 2093;
 
+let betweenConversation = 5000; 
 
 function preload() {
    heart = loadImage('./assets/heart.gif');
@@ -45,8 +46,8 @@ function setup() {
   osc.freq(selfTone);
   
   CDToBeep = random(1000,5000)
-  patient = 2 //ceil(random(1,5))
-  osc.start()
+  // patient = defaultPatient //ceil(random(1,5))
+  // osc.start()
 }
 let CDToBeep
 let permissionGrant = false;
@@ -70,8 +71,6 @@ let identifiedCounter = false;
 let identifiedFrequency;
 let identifiedTime = 0;
 
-//personality traits
-// let patient = 2;
 
 let pairingSuccess = false;
 
@@ -120,7 +119,7 @@ function resetPet()
   identifiedTime = 0;
   
   //personality traits
-  patient = 2;
+  patient = defaultPatient;
   
   pairingSuccess = false;
   
@@ -180,7 +179,7 @@ function draw() {
     {
       drawFace("shock");
       drawStatus();
-      if(identifiedCounter == false && millis() - lastUnstableTime > stableTimeBeforeListen)
+      if(identifiedCounter == false && millis() - lastUnstableTime > stableTimeBeforeListen + betweenConversation )
         {
           identifiedFrequency = listen()
           if(identifiedFrequency.length != 0)
@@ -196,7 +195,7 @@ function draw() {
               }
             }
             
-            if(millis() - lastUnstableTime > stableTimeBeforeListen + CDToBeep && selfIdentified == false && identifiedCounter == false)
+            if(millis() - lastUnstableTime > stableTimeBeforeListen + CDToBeep  + betweenConversation  && selfIdentified == false && identifiedCounter == false)
               // if is stable for 1 seconds + a random time between 1 - 3 seconds
             {
               if(talkStartTime == 0)
