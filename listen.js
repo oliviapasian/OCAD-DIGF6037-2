@@ -101,10 +101,10 @@ function listen()
         }
     }
   
-  if(highestTemp == selfTone)
-    {
-      highestTemp = 0
-    }
+  // if(highestTemp == selfTone)
+  //   {
+  //     highestTemp = 0
+  //   }
   if (highestTemp != 0)
   {
     result.push(highestTemp)

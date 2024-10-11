@@ -56,6 +56,8 @@ function requestAccess() {
   .catch(console.error);
   
   this.remove();
+  
+document.getElementById("infoPanel").style.display = "none";
 }
 
 function updateGyroscopeData()
