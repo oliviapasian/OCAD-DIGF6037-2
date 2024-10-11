@@ -32,7 +32,7 @@
   font-family: "dunbar-tall", sans-serif;
   font-weight: 700;
   font-style: normal;
-  color: rgb(0,9,3);
+  color: rgb(7,28,15);
   text-align: center;
 }
 
@@ -43,7 +43,7 @@
   font-family: "dunbar-tall", sans-serif;
   font-weight: 700;
   font-style: normal;
-  color: rgb(0,9,3);
+  color: rgb(7,28,15);
   text-align: center;
 }
 
@@ -53,7 +53,7 @@
   font-family: dunbar-text, sans-serif;
   font-weight: 500;
   font-style: normal;
-  color: rgb(0,9,3);
+  color: rgb(7,28,15);
   text-align: center;
   padding-left: 30px;
     padding-right: 30px;
@@ -66,7 +66,7 @@
   top: 14em;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: rgb(172,162,160);
+  background-color: rgb(167,179,182);
   border: none;
   color: white;
   padding: 15px 30px;
@@ -101,28 +101,28 @@
     const
         petName = "Peaches",
         petID = 9,
-        faceColour = [241,243,246],
-        eyeSeed = -2,
-        blinkSpeed = -1,
-        blinkSeed = 0,
-        eyeColour = [0,9,3],
-        eyeShadeColour = [202,192,190],
-        mouthSeed = -1,
-        conversationLengthSeed = -1,
-        pitchSeed = 2;
+        faceColour = [241,236,253],
+        eyeSeed = 0,
+        blinkSpeed = 4,
+        blinkSeed = 3,
+        eyeColour = [7,28,15],
+        eyeShadeColour = [197,209,212],
+        mouthSeed = -2,
+        conversationLengthSeed = -4,
+        pitchSeed = -2;
         //Conversation personality
         //The main pitch of this pet when they are in a conversation
-        let ConversationMainPitch = 250;
+        let ConversationMainPitch = 850;
         //the randomized pitch difference  final piitch will be MainPitch + random(-var, var) 
-        let ConversationPitchVariation = 1000;  
+        let ConversationPitchVariation = -500;  
         //How fast the pet talks, in milliseconds
-        let ConversationMainSpeed = 43 ;
+        let ConversationMainSpeed = 49 ;
         //the randomized speed difference
-        let ConversationSpeedVariation = 6;
+        let ConversationSpeedVariation = 10;
         // this is a randomed time reduced from the talk time, so it creates a little gap between two talks, the final talk time will be 
         //2000(default talk time in milliseconds) - random(0, 500)(default is 500) = the conversation will last 2000~1500 milliseconds
-        let ConversationTimeVariation = 350;
-        let defaultPatient = 5;
+        let ConversationTimeVariation = 300;
+        let defaultPatient = 3;
         let patient = defaultPatient;
         let selfTone = 1109;
     
@@ -131,7 +131,7 @@
 const rewardForNewPet = 10, 
 rewardForHuman = Math.round(Math.random()*15) - 7,
 rewardForConversation = 5; 
-const goal = 60;</script><script>let 
+const goal = 100;</script><script>let 
   windowHeight = window.innerHeight, windowWidth = window.innerWidth;
 let 
   eyeSize = windowHeight * 0.4 + eyeSeed * 5,

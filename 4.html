@@ -32,7 +32,7 @@
   font-family: "dunbar-tall", sans-serif;
   font-weight: 700;
   font-style: normal;
-  color: rgb(7,5,27);
+  color: rgb(26,12,22);
   text-align: center;
 }
 
@@ -43,7 +43,7 @@
   font-family: "dunbar-tall", sans-serif;
   font-weight: 700;
   font-style: normal;
-  color: rgb(7,5,27);
+  color: rgb(26,12,22);
   text-align: center;
 }
 
@@ -53,7 +53,7 @@
   font-family: dunbar-text, sans-serif;
   font-weight: 500;
   font-style: normal;
-  color: rgb(7,5,27);
+  color: rgb(26,12,22);
   text-align: center;
   padding-left: 30px;
     padding-right: 30px;
@@ -66,7 +66,7 @@
   top: 14em;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: rgb(181,161,183);
+  background-color: rgb(174,168,182);
   border: none;
   color: white;
   padding: 15px 30px;
@@ -101,28 +101,28 @@
     const
         petName = "Toby",
         petID = 3,
-        faceColour = [235,250,241],
-        eyeSeed = -3,
-        blinkSpeed = 4,
+        faceColour = [236,248,246],
+        eyeSeed = -2,
+        blinkSpeed = 1,
         blinkSeed = -2,
-        eyeColour = [7,5,27],
-        eyeShadeColour = [211,191,213],
-        mouthSeed = -1,
-        conversationLengthSeed = -2,
-        pitchSeed = -2;
+        eyeColour = [26,12,22],
+        eyeShadeColour = [204,198,212],
+        mouthSeed = 1,
+        conversationLengthSeed = 0,
+        pitchSeed = 3;
         //Conversation personality
         //The main pitch of this pet when they are in a conversation
-        let ConversationMainPitch = 650;
+        let ConversationMainPitch = 250;
         //the randomized pitch difference  final piitch will be MainPitch + random(-var, var) 
-        let ConversationPitchVariation = -500;  
+        let ConversationPitchVariation = -1000;  
         //How fast the pet talks, in milliseconds
-        let ConversationMainSpeed = 61 ;
+        let ConversationMainSpeed = 55 ;
         //the randomized speed difference
-        let ConversationSpeedVariation = 16;
+        let ConversationSpeedVariation = 14;
         // this is a randomed time reduced from the talk time, so it creates a little gap between two talks, the final talk time will be 
         //2000(default talk time in milliseconds) - random(0, 500)(default is 500) = the conversation will last 2000~1500 milliseconds
-        let ConversationTimeVariation = 350;
-        let defaultPatient = 1;
+        let ConversationTimeVariation = 150;
+        let defaultPatient = 4;
         let patient = defaultPatient;
         let selfTone = 1109;
     
@@ -131,7 +131,7 @@
 const rewardForNewPet = 10, 
 rewardForHuman = Math.round(Math.random()*15) - 7,
 rewardForConversation = 5; 
-const goal = 60;</script><script>let 
+const goal = 100;</script><script>let 
   windowHeight = window.innerHeight, windowWidth = window.innerWidth;
 let 
   eyeSize = windowHeight * 0.4 + eyeSeed * 5,
