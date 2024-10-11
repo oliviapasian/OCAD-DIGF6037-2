@@ -18,8 +18,13 @@ let totalRot
 let isStable = false
 let allowPermission;
 
+let gyroslider;
+
 function gyroscopeSetup()
 {
+  gyroslider = createSlider(0, 50, 8); // min, max, start
+  gyroslider.position(0,400); // x and y
+  gyroslider.size(400, 20); // width and height
     // DeviceOrientationEvent, DeviceMotionEvent
   if (typeof(DeviceOrientationEvent) !== 'undefined' && typeof(DeviceOrientationEvent.requestPermission) === 'function') {
     // ios 13 device
@@ -71,6 +76,8 @@ function updateGyroscopeData()
   prevRotX = rotationX
   prevRotZ = rotationZ
   
+  totalRot = gyroslider.value()
+  console.log("totalRot is" + str(totalRot))
   if (totalRot >= 8)
     {
       isStable = false
