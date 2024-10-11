@@ -48,7 +48,10 @@ function setup() {
   // default settings
   noStroke();
   noFill();
+
+  
   gyroscopeSetup();
+  
   
   listenSetup();
   
@@ -133,9 +136,9 @@ function resetPet()
   //personality traits
   patient = defaultPatient;
   
+
   pairingSuccess = false;
-  
-  matchedPet = []
+  matchedPet = [] 
   
   talkStartTime = 0;
   talkTime = 1000;
@@ -288,11 +291,13 @@ function draw() {
     }
   if (isStable == false && pairingSuccess == true)
     //when moved away in the middle of conversation, be MAD!!!!!
-  {
+    {
       drawFace("shock");
 
       drawStatus();
       convoTimeLeft += 1000
       resetPet()
     }
+
+  console.log(isStable)
 }
