@@ -170,14 +170,14 @@ function draw() {
     //Not paired and not stable // for when moving, the conversation ended successfully
     {
       lastUnstableTime = millis();
-      drawFace("initial");
+      drawFace("shock");
       drawStatus();
       console.log("hi")
     }
   if (isStable == true && pairingSuccess == false)
     //pairing sequence
     {
-      drawFace("shock");
+      drawFace("initial");
       drawStatus();
       if(identifiedCounter == false && millis() - lastUnstableTime > stableTimeBeforeListen + betweenConversation )
         {

@@ -32,6 +32,9 @@
 function drawFace(expression) {
   // settings  
 
+  // if(petStatus="win"){
+    
+  // }
 
   // draw eyes
   drawEye(leftEyeX, leftEyeY, eyeSize, 45, expression);

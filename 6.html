@@ -5,45 +5,133 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Coco</title>
 <link rel="stylesheet" type="text/css" href="style.css">
+<link rel="stylesheet" href="https://use.typekit.net/enp4mpc.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.10.0/p5.min.js" integrity="sha512-lvddmeF7aHRJwdbJeYThWd5kWSjTrXBzCRF/jYROiHzmhMJ1dEXfGH5Q7ft0yhizXTopAETG03s5ajTflauijA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.10.0/addons/p5.sound.min.js" integrity="sha512-WzkwpdWEMAY/W8WvP9KS2/VI6zkgejR4/KTxTl4qHx0utqeyVE0JY+S1DlMuxDChC7x0oXtk/ESji6a0lP/Tdg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<style>      
+    #infoPanel {
+  display: inline-block;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 90%;
+  background-color: rgba(240,240,240, 0.8);
+  padding: 25px;
+  z-index: 9999;
+  border-radius: 20px;
+  border: none;
+  font-size: 16px;
+}
+
+#infoPanel h1 {
+  margin-top: -5px;
+  // font-size: 22px;
+    font-size: 2.5em;
+  font-family: "dunbar-tall", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  color: rgb(15,9,30);
+  text-align: center;
+}
+
+#infoPanel h2 {
+  margin-top: 2px;
+  // font-size: 18px;
+  font-size: 1.5em;
+  font-family: "dunbar-tall", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  color: rgb(15,9,30);
+  text-align: center;
+}
+
+#infoPanel p {
+  /* font-size: 2vw; */
+  font-size: 1.25em;
+  font-family: dunbar-text, sans-serif;
+  font-weight: 500;
+  font-style: normal;
+  color: rgb(15,9,30);
+  text-align: center;
+  padding-left: 30px;
+    padding-right: 30px;
+}
+
+.sensorAccessButton {
+  position: absolute;
+  border-radius:25px;
+  /* top: 220px; */
+  top: 14em;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgb(154,179,189);
+  border: none;
+  color: white;
+  padding: 15px 30px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 1.5em;
+  /* font-size: 12px; */
+  font-family: dunbar-tall, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+</style>
+    </style>
 <body>
+
+ <div id="infoPanel">
+      <h2>HI, MY NAME IS</h2>
+      <h1>Zoe</h1>
+      <p>
+        I love being social and going on walks! I want to make friends but I need help moving around.
+      </p>
+      <p>
+        Can you help me?
+      </p>
+      <button class="sensorAccessButton">Adopt ME</button>
+        <p><small> Allow Sensor Access </small></p></div>
+</div>
 <script> // character settings
 
     const
         petName = "Zoe",
         petID = 5,
-        faceColour = [231,233,247],
-        eyeSeed = -2,
-        blinkSpeed = -4,
-        blinkSeed = 2,
-        eyeColour = [15,27,17],
-        eyeShadeColour = [195,181,203],
-        mouthSeed = 4,
+        faceColour = [230,233,250],
+        eyeSeed = -1,
+        blinkSpeed = -2,
+        blinkSeed = 0,
+        eyeColour = [15,9,30],
+        eyeShadeColour = [184,209,219],
+        mouthSeed = 0,
         conversationLengthSeed = -4,
-        pitchSeed = 4;
+        pitchSeed = -3;
         //Conversation personality
         //The main pitch of this pet when they are in a conversation
-        let ConversationMainPitch = 850;
+        let ConversationMainPitch = 550;
         //the randomized pitch difference  final piitch will be MainPitch + random(-var, var) 
-        let ConversationPitchVariation = -2000;  
+        let ConversationPitchVariation = 2000;  
         //How fast the pet talks, in milliseconds
-        let ConversationMainSpeed = 31 ;
+        let ConversationMainSpeed = 49 ;
         //the randomized speed difference
-        let ConversationSpeedVariation = 2;
+        let ConversationSpeedVariation = 16;
         // this is a randomed time reduced from the talk time, so it creates a little gap between two talks, the final talk time will be 
         //2000(default talk time in milliseconds) - random(0, 500)(default is 500) = the conversation will last 2000~1500 milliseconds
-        let ConversationTimeVariation = 200;
-        let defaultPatient = 3;
+        let ConversationTimeVariation = 100;
+        let defaultPatient = 1;
         let patient = defaultPatient;
         let selfTone = 2093;
     
 </script><script>//- const pitches = ["C5","D5","E5","F5","G5","A5","B5","C6","D6","E6","F6","G6"];
-  // rules  # to discuss
-  const rewardForNewPet = 10, 
-  rewardForHuman = Math.round(Math.random()*15) - 7,
-  rewardForConversation = 5; 
-  const goal = 60;</script><script>let 
+// rules  # to discuss
+const rewardForNewPet = 10, 
+rewardForHuman = Math.round(Math.random()*15) - 7,
+rewardForConversation = 5; 
+const goal = 60;</script><script>let 
   windowHeight = window.innerHeight, windowWidth = window.innerWidth;
 let 
   eyeSize = windowHeight * 0.4 + eyeSeed * 5,
@@ -79,8 +167,9 @@ let pointRecordForPets=new Array(12).fill(0),
   pointRecordForHuman=0,
   points=5;
   let petStatus;
-//- const pitches = [1109, 1480, 2093];</script>                       <!-- inject:js -->
+</script>                       <!-- inject:js -->
 <script src="./awards.js"></script>
+<script src="./basic-selfie.js"></script>
 <script src="./conversation.js"></script>
 <script src="./draw.js"></script>
 <script src="./expression_triggers.js"></script>
@@ -90,6 +179,6 @@ let pointRecordForPets=new Array(12).fill(0),
 <script src="./pitch.js"></script>
 <script src="./status.js"></script>
 <script src="./talk.js"></script>
-<!-- endinject --><script src="sketch.js"></script>
-</body>
+<!-- endinject --><script src="sketch.js"></script><script>window.onresize = ()=>location.reload();
+//- window.onresize = NaN;</script></body>
 </html>
