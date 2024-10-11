@@ -52,7 +52,7 @@ function setup() {
   
   listenSetup();
   
-  conversationSetup()
+  conversationSetup();
   
   osc = new p5.Oscillator('sine');
   osc.freq(selfTone);
@@ -60,6 +60,32 @@ function setup() {
   CDToBeep = random(1000,5000)
   // patient = defaultPatient //ceil(random(1,5))
   // osc.start()
+
+
+  //camera setup
+let videoConstraints = { 
+  // this piece is from the referenced example, creating a constraint object for the video capture
+  video: {
+    mandatory: {
+      maxWidth: cameraWidth,
+      maxHeight: cameraHeight,
+    },
+  },
+  audio: false,
+};
+
+liveCamera = createCapture(videoConstraints); // create video capture based on the constraints
+liveCamera.position(10, 250); //position the camera (change these values when added to full project code)
+liveCamera.hide();
+
+takePhotoButton = createButton("Take Selfie");
+takePhotoButton.mousePressed(takeSelfie); // click to take the selfie
+takePhotoButton.position(5,5);
+
+takePhotoButton.style('border-radius', '40px');
+takePhotoButton.style("width", "60px");
+takePhotoButton.style("height", "60px");
+takePhotoButton.style("background-color", "white");
 }
 let CDToBeep
 let permissionGrant = false;
@@ -140,9 +166,7 @@ function resetPet()
   talkStartTime = 0;
   talkTime = 1000;
   
-  
-  
-  
+
   // conversation relatedconversationStartTime = 0;
   yourTurnToTalk = false;
   talkedInThisBlock = false;
@@ -164,7 +188,18 @@ function draw() {
   // fill(0)
   // stroke(8)
 
+    // if there are images in the array, show them
+    if (selfieCapture.length > 0) {
+      for (let i = 0; i < selfieCapture.length; i++) {
+        //for loop to continue displaying images as they are saved to the array
+        image(selfieCapture[i], 90 + 120 * i, 5, 40, 30); // creating an image based on each added array object and moving the position further right every time so they don't overlap
   
+        if (selfieCapture.length >= 6) {
+          textSize(15);
+          text("You're out of photos!", 10, 50); // only screen room for 6 photos, so if more than let people know they have to stop
+        }
+      }
+      
   // text("Stable:" + str(isStable), 0, 50)
   // text("Paired:" + str(pairingSuccess), 0, 100)
   // text("TalkStartTime：" + str(talkStartTime), 0, 150)
@@ -182,16 +217,18 @@ function draw() {
   if (isStable == false && pairingSuccess == false)
     //Not paired and not stable // for when moving, the conversation ended successfully
     {
+      takePhotoButton.hide();
       lastUnstableTime = millis();
-      drawFace("initial");
+      drawFace("shock");
       drawStatus();
       console.log("hi")
     }
   if (isStable == true && pairingSuccess == false)
     //pairing sequence
     {
-      drawFace("shock");
+      drawFace("initial");
       drawStatus();
+      takePhotoButton.hide();
       if(identifiedCounter == false && millis() - lastUnstableTime > stableTimeBeforeListen + betweenConversation )
         {
           identifiedFrequency = listen()
@@ -257,6 +294,7 @@ function draw() {
   {    
       drawFace("talking");
       drawStatus();
+      takePhotoButton.show();
       //updateing conversation related code
       convoDuration = floor((millis() - conversationStartTime) / 1000) + talkOffset
       if(convoDuration % (talkBlock*2) == 0 && talkedInThisBlock == false)
@@ -290,6 +328,7 @@ function draw() {
     //when moved away in the middle of conversation, be MAD!!!!!
   {
       drawFace("shock");
+      takePhotoButton.show();
 
       drawStatus();
       convoTimeLeft += 1000

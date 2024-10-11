@@ -16,6 +16,7 @@ let rotDY
 let rotDZ
 let totalRot
 let isStable = false
+let allowPermission;
 
 function gyroscopeSetup()
 {
@@ -26,10 +27,9 @@ function gyroscopeSetup()
     DeviceOrientationEvent.requestPermission()
       .catch(() => {
         // show permission dialog only the first time
-        let button = createButton("click to allow access to sensors");
-        button.style("font-size", "24px");
-        button.center();
-        button.mousePressed( requestAccess );
+        allowPermission = select('.sensorAccessButton');
+        allowPermission.mousePressed(requestAccess);
+        // button.center();
         throw error;
       })
       .then(() => {
@@ -38,7 +38,7 @@ function gyroscopeSetup()
       })
   } else {
     // non ios 13 device
-    textSize(48);
+    // textSize(48);
     // text("non ios 13 device", 100, 100);
     permissionGranted = true;
   }
@@ -49,7 +49,9 @@ function requestAccess() {
     .then(response => {
       if (response == 'granted') {
         permissionGranted = true;
-      } else {
+        allowPermission.remove();
+        document.getElementById("infoPanel").style.display = "none";
+        } else {
         permissionGranted = false;
       }
     })
@@ -57,7 +59,6 @@ function requestAccess() {
   
   this.remove();
   
-document.getElementById("infoPanel").style.display = "none";
 }
 
 function updateGyroscopeData()
@@ -85,3 +86,4 @@ function updateGyroscopeData()
 // {
 //   updateGyroscopeData()
 // }
+
