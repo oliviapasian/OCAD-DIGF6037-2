@@ -164,7 +164,7 @@ function draw() {
   // for test
   // isStable = false; pairingSuccess = false;
 
-  // console.log(isStable+" "+pairingSuccess+" "+convoTimeLeft+" "+patient)
+  console.log(isStable+" "+pairingSuccess+" "+convoTimeLeft+" "+patient)
 
   if (isStable == false && pairingSuccess == false)
     //Not paired and not stable // for when moving, the conversation ended successfully
