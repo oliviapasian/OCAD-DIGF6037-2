@@ -81,8 +81,8 @@ liveCamera = createCapture(videoConstraints); // create video capture based on t
 liveCamera.position(10, 250); //position the camera (change these values when added to full project code)
 liveCamera.hide();
 
-takePhotoButton = createButton("Take Selfie");
-takePhotoButton.mousePressed(takeSelfie); // click to take the selfie
+// takePhotoButton = createButton("Take Selfie");
+// takePhotoButton.mousePressed(takeSelfie); // click to take the selfie
 takePhotoButton.position(5,5);
 
 takePhotoButton.style('border-radius', '40px');
@@ -192,16 +192,17 @@ function draw() {
   // stroke(8)
 
     // if there are images in the array, show them
-    if (selfieCapture.length > 0) {
-      for (let i = 0; i < selfieCapture.length; i++) {
-        //for loop to continue displaying images as they are saved to the array
-        image(selfieCapture[i], 90 + 120 * i, 5, 40, 30); // creating an image based on each added array object and moving the position further right every time so they don't overlap
+    // if (selfieCapture.length > 0) {
+    //   for (let i = 0; i < selfieCapture.length; i++) {
+    //     //for loop to continue displaying images as they are saved to the array
+    //     image(selfieCapture[i], 90 + 120 * i, 5, 40, 30); // creating an image based on each added array object and moving the position further right every time so they don't overlap
   
-        if (selfieCapture.length >= 6) {
-          textSize(15);
-          text("You're out of photos!", 10, 50); // only screen room for 6 photos, so if more than let people know they have to stop
-        }
-      }
+    //     if (selfieCapture.length >= 6) {
+    //       textSize(15);
+    //       text("You're out of photos!", 10, 50); // only screen room for 6 photos, so if more than let people know they have to stop
+    //     }
+    //   }
+    // }
       
   // text("Stable:" + str(isStable), 0, 50)
   // text("Paired:" + str(pairingSuccess), 0, 100)

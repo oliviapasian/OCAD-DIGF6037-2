@@ -29,6 +29,7 @@ function gyroscopeSetup()
   if (typeof(DeviceOrientationEvent) !== 'undefined' && typeof(DeviceOrientationEvent.requestPermission) === 'function') {
     // ios 13 device
     
+    // initial UI: request permission - if given, move on; if not, stay on this screen 
     DeviceOrientationEvent.requestPermission()
       .catch(() => {
         // show permission dialog only the first time
