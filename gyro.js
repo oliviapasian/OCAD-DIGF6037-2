@@ -40,6 +40,7 @@ function gyroscopeSetup()
       })
       .then(() => {
         // on any subsequent visits
+        console.log("yes");
         permissionGranted = true;
       })
   } else {

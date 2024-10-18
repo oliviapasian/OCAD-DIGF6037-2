@@ -65,30 +65,30 @@ function setup() {
   // osc.start()
 
 
-  //camera setup
-let videoConstraints = { 
-  // this piece is from the referenced example, creating a constraint object for the video capture
-  video: {
-    mandatory: {
-      maxWidth: cameraWidth,
-      maxHeight: cameraHeight,
-    },
-  },
-  audio: false,
-};
+//   //camera setup
+// let videoConstraints = { 
+//   // this piece is from the referenced example, creating a constraint object for the video capture
+//   video: {
+//     mandatory: {
+//       maxWidth: cameraWidth,
+//       maxHeight: cameraHeight,
+//     },
+//   },
+//   audio: false,
+// };
 
-liveCamera = createCapture(videoConstraints); // create video capture based on the constraints
-liveCamera.position(10, 250); //position the camera (change these values when added to full project code)
-liveCamera.hide();
+// liveCamera = createCapture(videoConstraints); // create video capture based on the constraints
+// liveCamera.position(10, 250); //position the camera (change these values when added to full project code)
+// liveCamera.hide();
 
-// takePhotoButton = createButton("Take Selfie");
-// takePhotoButton.mousePressed(takeSelfie); // click to take the selfie
-takePhotoButton.position(5,5);
+// // takePhotoButton = createButton("Take Selfie");
+// // takePhotoButton.mousePressed(takeSelfie); // click to take the selfie
+// takePhotoButton.position(5,5);
 
-takePhotoButton.style('border-radius', '40px');
-takePhotoButton.style("width", "60px");
-takePhotoButton.style("height", "60px");
-takePhotoButton.style("background-color", "white");
+// takePhotoButton.style('border-radius', '40px');
+// takePhotoButton.style("width", "60px");
+// takePhotoButton.style("height", "60px");
+// takePhotoButton.style("background-color", "white");
 }
 let CDToBeep
 let permissionGrant = false;
@@ -221,18 +221,17 @@ function draw() {
   if (isStable == false && pairingSuccess == false)
     //Not paired and not stable // for when moving, the conversation ended successfully
     {
-      takePhotoButton.hide();
+      // takePhotoButton.hide();
       lastUnstableTime = millis();
       drawFace("shock");
       drawStatus();
-      console.log("hi")
     }
   if (isStable == true && pairingSuccess == false)
     //pairing sequence
     {
       drawFace("initial");
       drawStatus();
-      takePhotoButton.hide();
+      // takePhotoButton.hide();
       if(identifiedCounter == false && millis() - lastUnstableTime > stableTimeBeforeListen + betweenConversation )
         {
           identifiedFrequency = listen()
