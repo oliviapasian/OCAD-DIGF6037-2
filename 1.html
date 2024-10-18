@@ -8,171 +8,80 @@
 <link rel="stylesheet" href="https://use.typekit.net/enp4mpc.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.10.0/p5.min.js" integrity="sha512-lvddmeF7aHRJwdbJeYThWd5kWSjTrXBzCRF/jYROiHzmhMJ1dEXfGH5Q7ft0yhizXTopAETG03s5ajTflauijA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.10.0/addons/p5.sound.min.js" integrity="sha512-WzkwpdWEMAY/W8WvP9KS2/VI6zkgejR4/KTxTl4qHx0utqeyVE0JY+S1DlMuxDChC7x0oXtk/ESji6a0lP/Tdg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<style>      
-    #infoPanel {
-  display: inline-block;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 100%;
-  height: 90%;
-  background-color: rgba(240,240,240, 0.8);
-  padding: 25px;
-  z-index: 9999;
-  border-radius: 20px;
-  border: none;
-  font-size: 16px;
-}
-
-#infoPanel h1 {
-  margin-top: -5px;
-   /* font-size: 22px; */
-   /* font-size: 22px; */
-    font-size: 2.5em;
-  font-family: "dunbar-tall", sans-serif;
-  font-weight: 700;
-  font-style: normal;
-  color: rgb(8,24,20);
-  text-align: center;
-}
-
-#infoPanel h2 {
-  margin-top: 2px;
-   /* font-size: 18px; */
-   /* font-size: 18px; */
-  font-size: 1.5em;
-  font-family: "dunbar-tall", sans-serif;
-  font-weight: 700;
-  font-style: normal;
-  color: rgb(8,24,20);
-  text-align: center;
-}
-
-#infoPanel p {
-  /* font-size: 2vw; */
-  font-size: 1.25em;
-  font-family: dunbar-text, sans-serif;
-  font-weight: 500;
-  font-style: normal;
-  color: rgb(8,24,20);
-  text-align: center;
-  padding-left: 30px;
-    padding-right: 30px;
-}
-
-.sensorAccessButton {
-  position: absolute;
-  border-radius:25px;
-  /* top: 220px; */
-  top: 14em;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: rgb(180,179,190);
-  border: none;
-  color: white;
-  padding: 15px 30px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 1.5em;
-  /* font-size: 12px; */
-  font-family: dunbar-tall, sans-serif;
-  font-weight: 400;
-  font-style: normal;
-}
-
-</style>
-    </style>
-<body>
-
- <div id="infoPanel">
-      <h2>HI, MY NAME IS</h2>
-      <h1>Milo</h1>
-      <p>
-        I love being social and going on walks! I want to make friends but I need help moving around.
-      </p>
-      <p>
-        Can you help me?
-      </p>
-      <button id="infoButton" class="sensorAccessButton">Adopt ME</button>
-      <!-- onclick="document.getElementById('infoPanel').style.display = 'none';" -->
-        <p><small> Allow Sensor Access </small></p></div>
-</div>
 <script> // character settings
 
-    const
-        petName = "Milo",
-        petID = 0,
-        faceColour = [250,241,239],
-        eyeSeed = 1,
-        blinkSpeed = -2,
-        blinkSeed = 0,
-        eyeColour = [8,24,20],
-        eyeShadeColour = [210,209,220],
-        mouthSeed = -3,
-        conversationLengthSeed = 4,
-        pitchSeed = -1;
-        //Conversation personality
-        //The main pitch of this pet when they are in a conversation
-        let ConversationMainPitch = 450;
-        //the randomized pitch difference  final piitch will be MainPitch + random(-var, var) 
-        let ConversationPitchVariation = -2000;  
-        //How fast the pet talks, in milliseconds
-        let ConversationMainSpeed = 37 ;
-        //the randomized speed difference
-        let ConversationSpeedVariation = 18;
-        // this is a randomed time reduced from the talk time, so it creates a little gap between two talks, the final talk time will be 
-        //2000(default talk time in milliseconds) - random(0, 500)(default is 500) = the conversation will last 2000~1500 milliseconds
-        let ConversationTimeVariation = 350;
-        let defaultPatient = 5;
-        let patient = defaultPatient;
-        let selfTone = 1109;
-    
+  const
+      petName = "Milo",
+      petID = 0,
+      faceColour = [241,251,250],
+      eyeSeed = -2,
+      blinkSpeed = 4,
+      blinkSeed = -4,
+      eyeColour = [23,12,13],
+      eyeShadeColour = [191,215,203],
+      mouthSeed = 0,
+      conversationLengthSeed = 3,
+      pitchSeed = -3;
+      //Conversation personality
+      //The main pitch of this pet when they are in a conversation
+      let ConversationMainPitch = 850;
+      //the randomized pitch difference  final piitch will be MainPitch + random(-var, var) 
+      let ConversationPitchVariation = 500;  
+      //How fast the pet talks, in milliseconds
+      let ConversationMainSpeed = 73 ;
+      //the randomized speed difference
+      let ConversationSpeedVariation = 10;
+      // this is a randomed time reduced from the talk time, so it creates a little gap between two talks, the final talk time will be 
+      //2000(default talk time in milliseconds) - random(0, 500)(default is 500) = the conversation will last 2000~1500 milliseconds
+      let ConversationTimeVariation = 100;
+      let defaultPatient = 3;
+      let patient = defaultPatient;
+      let selfTone = 1109;
+  
 </script><script>//- const pitches = ["C5","D5","E5","F5","G5","A5","B5","C6","D6","E6","F6","G6"];
 // rules  # to discuss
 const rewardForNewPet = 10, 
 rewardForHuman = Math.round(Math.random()*15) - 7,
 rewardForConversation = 5; 
 const goal = 100;</script><script>let 
-  windowHeight = window.innerHeight, windowWidth = window.innerWidth;
+windowHeight = window.innerHeight, windowWidth = window.innerWidth;
 let 
-  eyeSize = windowHeight * 0.4 + eyeSeed * 5,
-  margin = windowWidth * 0.1 + eyeSize / 2,
-  leftEyeX = margin,
-  leftEyeY = windowHeight * 0.45,
-  rightEyeX = windowWidth - margin,
-  rightEyeY = leftEyeY,
-  ballSize = eyeSize * 0.8, 
-  eyeLineWidth = Math.abs(3 + 1 * eyeSeed),
-  blinkPause = 250 + 10 * blinkSeed,            
-  eyeLidWidth = eyeSize + eyeLineWidth * 2,
-  eyeLidHeight = eyeSize * 0.6,
-  eyeLidTopOpenPosY = -eyeLidHeight * 2,
-  eyeLidBottomOpenPosY = eyeLidHeight,
-  eyeLidTopClosePosY = -eyeLidHeight,
-  eyeLidBottomClosePosY = 0,
-  mouthWidth = windowWidth * 0.2 + mouthSeed * 5,
-  mouthThickness = Math.abs(1+mouthSeed * 2),
-  mouthInitialHeight = Math.abs(2 + mouthSeed * 1),
-  mouthPause = 20 + mouthSeed * 3,
-  eyeMovePause = 60;
+eyeSize = windowHeight * 0.4 + eyeSeed * 5,
+margin = windowWidth * 0.1 + eyeSize / 2,
+leftEyeX = margin,
+leftEyeY = windowHeight * 0.45,
+rightEyeX = windowWidth - margin,
+rightEyeY = leftEyeY,
+ballSize = eyeSize * 0.8, 
+eyeLineWidth = Math.abs(3 + 1 * eyeSeed),
+blinkPause = 250 + 10 * blinkSeed,            
+eyeLidWidth = eyeSize + eyeLineWidth * 2,
+eyeLidHeight = eyeSize * 0.6,
+eyeLidTopOpenPosY = -eyeLidHeight * 2,
+eyeLidBottomOpenPosY = eyeLidHeight,
+eyeLidTopClosePosY = -eyeLidHeight,
+eyeLidBottomClosePosY = 0,
+mouthWidth = windowWidth * 0.2 + mouthSeed * 5,
+mouthThickness = Math.abs(1+mouthSeed * 2),
+mouthInitialHeight = Math.abs(2 + mouthSeed * 1),
+mouthPause = 20 + mouthSeed * 3,
+eyeMovePause = 60;
 let 
-  mouthTimer = mouthPause,
-  blinkTimer = blinkPause,
-  eyeLidTopPosY = eyeLidTopOpenPosY,
-  eyeLidBottomPosY = eyeLidBottomOpenPosY,
-  mouthHeight = mouthInitialHeight,
-  eyeMoveTimer = eyeMovePause,
-  eyeMoveRange = 1;
+mouthTimer = mouthPause,
+blinkTimer = blinkPause,
+eyeLidTopPosY = eyeLidTopOpenPosY,
+eyeLidBottomPosY = eyeLidBottomOpenPosY,
+mouthHeight = mouthInitialHeight,
+eyeMoveTimer = eyeMovePause,
+eyeMoveRange = 1;
 let direction = 1;
 let pointRecordForPets=new Array(12).fill(0),
-  pointRecordForHuman=0,
-  points=5;
-  let petStatus;
+pointRecordForHuman=0,
+points=5;
+let petStatus;
 </script>                       <!-- inject:js -->
 <script src="./awards.js"></script>
-<!-- <script src="./basic-selfie.js"></script> -->
+<script src="./basic-selfie.js"></script>
 <script src="./conversation.js"></script>
 <script src="./draw.js"></script>
 <script src="./expression_triggers.js"></script>
@@ -182,8 +91,6 @@ let pointRecordForPets=new Array(12).fill(0),
 <script src="./pitch.js"></script>
 <script src="./status.js"></script>
 <script src="./talk.js"></script>
-<!-- <script src="./selfie.js"></script> -->
-<!-- endinject --><script src="sketch.js"></script><script>window.onresize = ()=>location.reload();
-//- window.onresize = NaN;
-</script></body>
+<!-- endinject --><script src="sketch.js"></script><script>//- window.onresize = ()=>location.reload();
+//- window.onresize = NaN;</script></body>
 </html>

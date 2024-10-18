@@ -25,21 +25,9 @@ DEVICE Gyroscope by remarkability https://editor.p5js.org/remarkability/sketches
 
 let betweenConversation = 5000; 
 
-
-let byebye = []
-function sayBye()
-{
-  let temp = random(byebye)
-  temp.play()
-}
-
 function preload() {
    heart = loadImage('./assets/heart.gif');
    heartGoal = loadImage('./assets/heart-goal.gif');
-   byebye[0] = loadSound('assets/byebye1.mp3');
-   byebye[1] = loadSound('./assets/byebye2.mp3');
-   byebye[2] = loadSound('./assets/byebye3.mp3');
-
 }
 
 function setup() {
@@ -48,14 +36,11 @@ function setup() {
   // default settings
   noStroke();
   noFill();
-
-  
   gyroscopeSetup();
-  
   
   listenSetup();
   
-  conversationSetup();
+  conversationSetup()
   
   osc = new p5.Oscillator('sine');
   osc.freq(selfTone);
@@ -162,14 +147,16 @@ function resetPet()
   //personality traits
   patient = defaultPatient;
   
-
   pairingSuccess = false;
-  matchedPet = [] 
+  
+  matchedPet = []
   
   talkStartTime = 0;
   talkTime = 1000;
   
-
+  
+  
+  
   // conversation relatedconversationStartTime = 0;
   yourTurnToTalk = false;
   talkedInThisBlock = false;
@@ -180,7 +167,6 @@ function resetPet()
   convoDuration = 0;
   lastUnstableTime = millis()
   loopStartTime = millis()
-  sayBye()
 }
 
 function draw() {
@@ -191,19 +177,7 @@ function draw() {
   // fill(0)
   // stroke(8)
 
-    // if there are images in the array, show them
-    // if (selfieCapture.length > 0) {
-    //   for (let i = 0; i < selfieCapture.length; i++) {
-    //     //for loop to continue displaying images as they are saved to the array
-    //     image(selfieCapture[i], 90 + 120 * i, 5, 40, 30); // creating an image based on each added array object and moving the position further right every time so they don't overlap
   
-    //     if (selfieCapture.length >= 6) {
-    //       textSize(15);
-    //       text("You're out of photos!", 10, 50); // only screen room for 6 photos, so if more than let people know they have to stop
-    //     }
-    //   }
-    // }
-      
   // text("Stable:" + str(isStable), 0, 50)
   // text("Paired:" + str(pairingSuccess), 0, 100)
   // text("TalkStartTime：" + str(talkStartTime), 0, 150)
@@ -216,7 +190,7 @@ function draw() {
   // for test
   // isStable = false; pairingSuccess = false;
 
-  // console.log(isStable+" "+pairingSuccess+" "+convoTimeLeft+" "+patient)
+  console.log(isStable+" "+pairingSuccess+" "+convoTimeLeft+" "+patient)
 
   if (isStable == false && pairingSuccess == false)
     //Not paired and not stable // for when moving, the conversation ended successfully
@@ -297,7 +271,6 @@ function draw() {
   {    
       drawFace("talking");
       drawStatus();
-      takePhotoButton.show();
       //updateing conversation related code
       convoDuration = floor((millis() - conversationStartTime) / 1000) + talkOffset
       if(convoDuration % (talkBlock*2) == 0 && talkedInThisBlock == false)
@@ -329,14 +302,11 @@ function draw() {
     }
   if (isStable == false && pairingSuccess == true)
     //when moved away in the middle of conversation, be MAD!!!!!
-    {
+  {
       drawFace("shock");
-      takePhotoButton.show();
 
       drawStatus();
       convoTimeLeft += 1000
       resetPet()
     }
-
-  console.log(isStable)
 }
